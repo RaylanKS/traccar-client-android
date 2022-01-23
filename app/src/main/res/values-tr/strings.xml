@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Yönetim</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Servisi Başlat</string>
   <string name="shortcut_stop">Servisi Durdur</string>
   <string name="shortcut_sos">Yardım Çağrısı Gönder</string>
-  <string name="channel_default">Birincil Kanal</string>
+  <string name="client_channel_default">Birincil Kanal</string>
   <string name="settings_id_title">Cihaz Kimliği</string>
   <string name="settings_url_title">Sunucu adresi</string>
   <string name="settings_url_summary">Takip sunucusu adresi</string>

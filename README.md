@@ -1,6 +1,10 @@
-# [Traccar Client for Android](https://www.traccar.org/client)
+# [Schultz Rastreios for Android](https://rastreio.softquick.com.br/panel/)
 
 [![Get it on Google Play](http://www.tananaev.com/badges/google-play.svg)](https://play.google.com/store/apps/details?id=org.traccar.client) [![Get it on F-Droid](http://www.tananaev.com/badges/f-droid.svg)](https://f-droid.org/repository/browse/?fdid=org.traccar.client)
+
+## About
+
+Fork of
 
 ## Overview
 

@@ -14,12 +14,6 @@
         android:key="id"
         android:title="@string/settings_id_title" />
 
-    <EditTextPreference
-        android:defaultValue="@string/settings_url_default_value"
-        android:key="url"
-        android:summary="@string/settings_url_summary"
-        android:title="@string/settings_url_title" />
-
     <ListPreference
         android:defaultValue="medium"
         android:entries="@array/settings_accuracy_names"
@@ -29,32 +23,11 @@
         android:title="@string/settings_accuracy_title" />
 
     <EditTextPreference
-        android:defaultValue="300"
-        android:key="interval"
+        android:defaultValue="60"
         android:inputType="number"
+        android:key="interval"
         android:summary="@string/settings_interval_summary"
         android:title="@string/settings_interval_title" />
-
-    <EditTextPreference
-        android:defaultValue="0"
-        android:key="distance"
-        android:inputType="number"
-        android:summary="@string/settings_distance_summary"
-        android:title="@string/settings_distance_title" />
-
-    <EditTextPreference
-        android:defaultValue="0"
-        android:key="angle"
-        android:inputType="number"
-        android:summary="@string/settings_angle_summary"
-        android:title="@string/settings_angle_title" />
-
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="buffer"
-        android:summaryOff="@string/settings_buffer_off_summary"
-        android:summaryOn="@string/settings_buffer_on_summary"
-        android:title="@string/settings_buffer" />
 
     <CheckBoxPreference
         android:defaultValue="true"

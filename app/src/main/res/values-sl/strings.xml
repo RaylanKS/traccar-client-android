@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar klient</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Zaženi storitev</string>
   <string name="shortcut_stop">Ustavi storitev</string>
   <string name="shortcut_sos">Pošlji SOS</string>
-  <string name="channel_default">Glavni kanal</string>
+  <string name="client_channel_default">Glavni kanal</string>
   <string name="settings_id_title">Identifikator naprave</string>
   <string name="settings_url_title">URL strežnika</string>
   <string name="settings_url_summary">ULR naslov strežnika za sledenje</string>

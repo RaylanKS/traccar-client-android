@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Client</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Mulai Layanan</string>
   <string name="shortcut_stop">Tutup Layanan</string>
   <string name="shortcut_sos">Kirim SOS</string>
-  <string name="channel_default">Jalur Utama</string>
+  <string name="client_channel_default">Jalur Utama</string>
   <string name="settings_id_title">Pengindentifikasi Perangkat</string>
   <string name="settings_url_title">URL Server</string>
   <string name="settings_url_summary">URL Server Pelacak</string>

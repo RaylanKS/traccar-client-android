@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Клиент</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Запуск сервиса</string>
   <string name="shortcut_stop">Остановка сервиса</string>
   <string name="shortcut_sos">Отправка SOS</string>
-  <string name="channel_default">Первичный канал</string>
+  <string name="client_channel_default">Первичный канал</string>
   <string name="settings_id_title">Идентификатор устройства</string>
   <string name="settings_url_title">URL сервера</string>
   <string name="settings_url_summary">URL телематического сервера</string>

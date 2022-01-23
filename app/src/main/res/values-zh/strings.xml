@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar定位端</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">开始服务</string>
   <string name="shortcut_stop">停止服务</string>
   <string name="shortcut_sos">发送SOS</string>
-  <string name="channel_default">主通道</string>
+  <string name="client_channel_default">主通道</string>
   <string name="settings_id_title">设备编码</string>
   <string name="settings_url_title">服务器地址</string>
   <string name="settings_url_summary">服务地址</string>

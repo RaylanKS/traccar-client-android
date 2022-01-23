@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Kliens</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Szolgáltatás indítása</string>
   <string name="shortcut_stop">Szolgáltatás leállítása</string>
   <string name="shortcut_sos">SOS küldése</string>
-  <string name="channel_default">Elsődleges csatorna</string>
+  <string name="client_channel_default">Elsődleges csatorna</string>
   <string name="settings_id_title">Eszközazonosító</string>
   <string name="settings_url_title">Szerver URL</string>
   <string name="settings_url_summary">Nyomkövető szerver URL</string>

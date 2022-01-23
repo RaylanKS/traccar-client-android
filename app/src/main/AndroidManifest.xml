@@ -2,8 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.traccar.client">
-
+    package="br.com.softquick.rastreio">
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -13,31 +12,43 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
     <uses-permission android:name="oppo.permission.OPPO_COMPONENT_SAFE" />
     <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT" />
-
     <uses-feature android:name="android.hardware.location.network" />
     <uses-feature android:name="android.hardware.location.gps" />
-
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         android:name=".MainApplication"
-        tools:ignore="GoogleAppIndexingWarning">
-
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:theme="@style/AppTheme"
             android:launchMode="singleTask" />
-
+        <activity
+            android:name=".ChooseAppActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="org.traccar.client.MainActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="org.traccar.manager.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask" />
         <activity-alias
             android:name=".Launcher"
             android:exported="true"
@@ -50,13 +61,12 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity-alias>
-
         <activity
-            android:name=".StatusActivity"
-            android:exported="false" />
-
+            android:name="org.traccar.client.StatusActivity"
+            android:exported="false"
+            android:launchMode="singleTask"/>
         <activity
-            android:name=".ShortcutActivity"
+            android:name="org.traccar.client.ShortcutActivity"
             android:exported="true"
             android:label="@string/menu_shortcuts">
             <intent-filter>
@@ -65,17 +75,19 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:exported="false"
+            android:name="com.mikepenz.aboutlibraries.ui.LibsActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <service
-            android:name=".TrackingService"
+            android:name="org.traccar.client.TrackingService"
             android:exported="false"
             android:foregroundServiceType="location" />
-
         <service
-            android:name=".TrackingService$HideNotificationService"
+            android:name="org.traccar.client.TrackingService$HideNotificationService"
             android:exported="false" />
-
         <receiver
-            android:name=".AutostartReceiver"
+            android:name="org.traccar.client.AutostartReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -84,7 +96,5 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-
     </application>
-
 </manifest>

@@ -16,16 +16,17 @@
 package org.traccar.client
 
 import android.content.Context
-import org.traccar.client.ProtocolFormatter.formatRequest
-import org.traccar.client.RequestManager.sendRequestAsync
-import org.traccar.client.PositionProvider.PositionListener
-import org.traccar.client.NetworkManager.NetworkHandler
 import android.os.Handler
 import android.os.Looper
-import androidx.preference.PreferenceManager
 import android.util.Log
+import androidx.preference.PreferenceManager
+import br.com.softquick.rastreio.R
 import org.traccar.client.DatabaseHelper.DatabaseHandler
+import org.traccar.client.NetworkManager.NetworkHandler
+import org.traccar.client.PositionProvider.PositionListener
+import org.traccar.client.ProtocolFormatter.formatRequest
 import org.traccar.client.RequestManager.RequestHandler
+import org.traccar.client.RequestManager.sendRequestAsync
 
 class TrackingController(private val context: Context) : PositionListener, NetworkHandler {
 

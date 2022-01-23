@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home_screen"
+        android:title="@string/home_screen" />
+    <item
+        android:id="@+id/menu_status"
+        android:title="@string/menu_status" />
+    <item
+        android:id="@+id/menu_more"
+        android:title="@string/about_menu">
+        <menu>
+            <item
+                android:id="@+id/menu_termos_uso"
+                android:title="@string/terms_of_use" />
+            <item
+                android:id="@+id/menu_privacidade"
+                android:title="@string/privacy_policy" />
+            <item
+                android:id="@+id/menu_open_source_licenses"
+                android:title="@string/about_app" />
+            <item
+                android:id="@+id/menu_contact"
+                android:title="@string/contact" />
+        </menu>
+    </item>
+</menu>

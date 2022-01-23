@@ -30,6 +30,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.preference.PreferenceManager
+import br.com.softquick.rastreio.R
 import org.traccar.client.PositionProvider.PositionListener
 import org.traccar.client.ProtocolFormatter.formatRequest
 import org.traccar.client.RequestManager.RequestHandler

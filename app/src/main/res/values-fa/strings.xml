@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ردیاب Traccar</string>
-  <string name="app_logo">ردیاب Traccar</string>
   <string name="shortcut_start">شروع کار</string>
   <string name="shortcut_stop">توقف کار</string>
   <string name="shortcut_sos">ارسال پیام اضطراری</string>
-  <string name="channel_default">شبکه اولیه</string>
+  <string name="client_channel_default">شبکه اولیه</string>
   <string name="settings_id_title">کد هویت دستگاه</string>
   <string name="settings_url_title">مسیر آدرس سرور</string>
   <string name="settings_url_summary">مسیر آدرس سرور مسیریاب</string>

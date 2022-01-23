@@ -15,8 +15,12 @@
  */
 package org.traccar.client
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import br.com.softquick.rastreio.MainMenuHandler
+import br.com.softquick.rastreio.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,4 +29,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        return MainMenuHandler.handleOnCreateOptionsMenu(menu, this, intArrayOf(R.id.menu_home_screen, R.id.menu_status))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return MainMenuHandler.handleOnOptionsItemSelected(item, this)
+    }
 }

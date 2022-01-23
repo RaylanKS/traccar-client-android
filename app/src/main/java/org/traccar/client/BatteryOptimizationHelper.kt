@@ -25,15 +25,20 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
-import com.judemanutd.autostarter.AutoStartPermissionHelper
+import br.com.softquick.rastreio.R
 
+@Suppress("unused")
 class BatteryOptimizationHelper {
+
+
 
     private fun showDialog(context: Context, onSuccess: () -> Unit) {
         val builder = AlertDialog.Builder(context)
         builder.setMessage(context.getString(R.string.request_exception))
         builder.setPositiveButton(android.R.string.ok) { _, _ -> onSuccess() }
-        builder.setNegativeButton(android.R.string.cancel, null)
+        builder.setNeutralButton(R.string.tutorial) { _, _ -> br.com.softquick.rastreio.MainMenuHandler.openURL(
+            HELP_URL, context)}
+        builder.setCancelable(false)
         builder.show()
     }
 
@@ -69,33 +74,24 @@ class BatteryOptimizationHelper {
     fun requestException(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            if (!sharedPreferences.getBoolean(KEY_EXCEPTION_REQUESTED, false)) {
-                sharedPreferences.edit().putBoolean(KEY_EXCEPTION_REQUESTED, true).apply()
-                val powerManager = context.getSystemService(PowerManager::class.java)
-                if (!powerManager.isIgnoringBatteryOptimizations(context.packageName)) {
-                    showDialog(context) {
-                        try {
-                            context.startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-                        } catch (e: ActivityNotFoundException) {
-                            requestVendorException(context)
-                        }
+            sharedPreferences.edit().putBoolean(KEY_EXCEPTION_REQUESTED, true).apply()
+            val powerManager = context.getSystemService(PowerManager::class.java)
+            if (!powerManager.isIgnoringBatteryOptimizations(context.packageName)) {
+                showDialog(context) {
+                    try {
+                        context.startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                    } catch (e: ActivityNotFoundException) {
+                        requestVendorException(context)
                     }
-                    return true
                 }
-            } else if (!sharedPreferences.getBoolean(KEY_AUTOSTART_REQUESTED, false)) {
-                sharedPreferences.edit().putBoolean(KEY_AUTOSTART_REQUESTED, true).apply()
-                try {
-                    if (AutoStartPermissionHelper.getInstance().getAutoStartPermission(context)) {
-                        return true
-                    }
-                } catch (e: SecurityException) {
-                }
+                return true
             }
         }
         return false
     }
 
     companion object {
+        private const val HELP_URL = "https://rastreio.softquick.com.br/battery_help.php"
         private const val KEY_EXCEPTION_REQUESTED = "exceptionRequested"
         private const val KEY_AUTOSTART_REQUESTED = "autostartRequested"
     }

@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar-kliënt</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Begin diens</string>
   <string name="shortcut_stop">Stop diens</string>
   <string name="shortcut_sos">Stuur SOS</string>
-  <string name="channel_default">Primêre Kanaal</string>
+  <string name="client_channel_default">Primêre Kanaal</string>
   <string name="settings_id_title">Toestel-identifiseerder</string>
   <string name="settings_url_title">Bediener-URL</string>
   <string name="settings_url_summary">Volg bediener-URL</string>

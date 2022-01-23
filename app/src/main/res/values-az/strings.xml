@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar müştəri</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">xidmətə başla</string>
   <string name="shortcut_stop">xidmət dayandırmaq</string>
   <string name="shortcut_sos">sos göndərin</string>
-  <string name="channel_default">əsas kanal</string>
+  <string name="client_channel_default">əsas kanal</string>
   <string name="settings_id_title">Qurğu identifikatoru</string>
   <string name="settings_url_title">Server URL</string>
   <string name="settings_url_summary">Tracking server URL</string>

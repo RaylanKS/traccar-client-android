@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Cliente Traccar</string>
+  <string name="app_name">Schultz Rastreios</string>
   <string name="app_logo">Traccar</string>
-  <string name="shortcut_start">Iniciar serviço</string>
-  <string name="shortcut_stop">Parar serviço</string>
+  <string name="shortcut_start">Iniciar rastreamento</string>
+  <string name="shortcut_stop">Parar de rastrear</string>
   <string name="shortcut_sos">Enviar SOS</string>
-  <string name="channel_default">Canal Principal</string>
-  <string name="settings_id_title">Identificador do dispositivo</string>
+  <string name="client_channel_default">Estado do rastreamento</string>
+  <string name="settings_id_title">Chave do dispositivo</string>
   <string name="settings_url_title">URL do Servidor</string>
   <string name="settings_url_summary">URL do servidor de rastreamento</string>
   <string name="settings_interval_title">Invervalo</string>
@@ -15,17 +15,17 @@
   <string name="settings_distance_summary">Reportando distância em metros</string>
   <string name="settings_angle_title">Ângulo</string>
   <string name="settings_angle_summary">Reportando ângulo em graus</string>
-  <string name="settings_status_title">Status do Serviço</string>
+  <string name="settings_status_title">Status atual</string>
   <string name="settings_status_off">Iniciar</string>
   <string name="settings_status_on">Parar</string>
-  <string name="settings_status_off_summary">Serviço Parado</string>
-  <string name="settings_status_on_summary">Serviço em execução</string>
+  <string name="settings_status_off_summary">Não está sendo rastreado</string>
+  <string name="settings_status_on_summary">Sendo rastreado</string>
   <string name="settings_buffer">Offline buffering</string>
   <string name="settings_buffer_off_summary">Buffering Desligado</string>
   <string name="settings_buffer_on_summary">Buffering Ligado</string>
-  <string name="settings_wakelock">Bloqueio de Ativação</string>
-  <string name="settings_wakelock_off_summary">Bloqueio de Ativação Desligado</string>
-  <string name="settings_wakelock_on_summary">Bloqueio de Ativação Ligado</string>
+  <string name="settings_wakelock">Manter o dispositivo ligado</string>
+  <string name="settings_wakelock_off_summary">Não manter o dispositivo ligado (o aplicativo pode parar de rastrear quando estiver ocioso)</string>
+  <string name="settings_wakelock_on_summary">Sempre manter o dispositivo ligado quando possível</string>
   <string name="settings_accuracy_title">Precisão de localização</string>
   <string name="settings_accuracy_summary">Precisão de localização desejada</string>
   <string name="settings_accuracy_high">Alto</string>
@@ -46,4 +46,36 @@
   <string name="hidden_app_name">Configurações do Dispositivo</string>
   <string name="hidden_alert">O aplicativo foi escondido. Para abrir novamente por favor digite 8722227 (TRACCAR).</string>
   <string name="error_msg_invalid_url">Digite uma URL http: // ou https: // válida</string>
+  <string name="request_exception">Para prevenir que o app pare de obter a localização, por favor desligue a otimização de bateria.\ Depois em clicar em \'OK\', clique no menu suspenso chamado \'Aplicat. não otimizados\' e selecione nele a opção \'Todos\', procure na lista o nome do aplicativo (Schultz Rastreios), e ao encontrar desative ele.</string>
+  <string name="request_background">Para prevenir que o app pare de obter a localização, por favor ative a permissão \"%s\" depois de clicar em \'OK\'.</string>
+  <string name="request_device_key_dialog">Digite a chave para este dispositivo que você recebeu do admininstrador:</string>
+  <string name="device_key_textfield_title">Chave do dispositivo</string>
+  <string name="client_notification_text_info">Toque para configurar o rastreamento</string>
+  <string name="tutorial">Tutorial</string>
+  <string name="contact">Contato</string>
+  <string name="about_menu">Sobre</string>
+
+  <string name="button_start">Iniciar</string>
+  <string name="error_connection">Falha ao conectar ao servidor</string>
+  <string name="file_browser">Explorador de arquivos</string>
+  <string name="manager_notification_channel">Alertas de segurança</string>
+  <string name="permission_location_rationale">O aplicativo precisa de permissão para mostrar a localização deste dispositivo no mapa</string>
+  <string name="i_accept_the_terms">Eu aceito os Termos de Uso</string>
+  <string name="i_accept_the_privacy">Eu aceito a Política de Privacidade</string>
+  <string name="terms_info">Para utilizar o aplicativo, é necessário aceitar os Termos de Uso e a Política de Privacidade.</string>
+  <string name="data_collection_info">Alguns de seus dados podem ser coletados, como o seu endereço IP e localização, porém alguns são opcionais. Confira a Política de Privacidade para mais detalhes.</string>
+  <string name="terms_of_use">Termos de Uso</string>
+  <string name="privacy_policy">Política de Privacidade</string>
+  <string name="next">Próximo</string>
+  <string name="exit">Sair</string>
+  <string name="retry">Tentar novamente</string>
+
+  <string name="select_app_text">Escolha uma opção:</string>
+  <string name="select_track_other_devices">Administrar meus dispositivos e veículos</string>
+  <string name="select_track_this_device">Rastrear este dispositivo</string>
+
+  <string name="about_app">Sobre o aplicativo</string>
+  <string name="already_in_main_screen">Já está na tela inicial</string>
+  <string name="home_screen">Tela inicial</string>
+
 </resources>

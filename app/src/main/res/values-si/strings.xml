@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Client</string>
-  <string name="app_logo">Traccar</string>
   <string name="settings_id_title">උපකරණ හඳුන්වනය</string>
   <string name="settings_interval_title">සංඛ්‍යාතය</string>
   <string name="settings_status_title">සේවා තත්වය</string>

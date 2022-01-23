@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="app_name">Traccar Client</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+  <string name="app_name">Schultz Rastreios</string>
   <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Start service</string>
   <string name="shortcut_stop">Stop service</string>
   <string name="shortcut_sos">Send SOS</string>
-  <string name="channel_default">Primary Channel</string>
+  <string name="client_channel_default">Tracking status</string>
   <string name="settings_id_title">Device identifier</string>
   <string name="settings_url_title">Server URL</string>
   <string name="settings_url_summary">Tracking server URL</string>
@@ -50,4 +50,63 @@
   <string name="request_exception">To continuously collect location data please turn off battery optimization for the app.</string>
   <string name="request_background">To continuously collect location data please enable \"%s\" permission.</string>
   <string name="request_background_option">Allow all the time</string>
+  <string name="request_device_key_dialog">Enter the device key you received from the administrator:</string>
+  <string name="ok">OK</string>
+  <string name="device_key_textfield_title">Device key</string>
+  <string name="client_notification_text_info">Click here to configure</string>
+  <string name="tutorial">Tutorial</string>
+  <string name="contact">Contact</string>
+  <string name="about_menu">About</string>
+
+
+  <string name="button_start">Start</string>
+  <string name="error_connection">Error connecting to server</string>
+  <string name="file_browser">File browser</string>
+  <string name="manager_notification_channel">Security alerts</string>
+  <string name="permission_location_rationale">App requires location permission to show this device on the map.</string>
+
+  <!-- Terms dialog box -->
+  <string name="i_accept_the_terms">I accept the Terms of Use</string>
+  <string name="i_accept_the_privacy">I accept the Privacy Polity</string>
+  <string name="terms_info">To use the app, you need to accept the Terms of Use and the Privacy Polity.</string>
+  <string name="terms_of_use">Terms of Use (Portuguese language)</string>
+  <string name="privacy_policy">Privacy Polity (Portuguese language)</string>
+  <string name="data_collection_info">We may collect data. Check the Privacy Policy for more info.</string>
+  <string name="next">Next</string>
+  <string name="exit">Exit</string>
+  <string name="retry">Retry</string>
+
+  <string name="select_app_text">Select an option:</string>
+  <string name="select_track_other_devices">Show my tracked devices</string>
+  <string name="select_track_this_device">Track this device</string>
+
+  <string name="about_app">About the app</string>
+  <string name="already_in_main_screen">Already in main screen</string>
+
+  <string name="home_screen">Home screen</string>
+
+  <!-- Custom licenses -->
+  <string name="define_plu_traccar">2021;Traccar</string>
+  <string name="library_traccar_author">Anton Tananaev</string>
+  <string name="library_traccar_authorWebsite">https://www.traccar.org/</string>
+  <string name="library_traccar_libraryName">Traccar Manager for Android</string>
+  <string name="library_traccar_libraryDescription">"Traccar Manager is a mobile application to manage GPS tracking devices. It requires a
+        Traccar server instance to work.\nModifications made for this project (Schultz Rastreios) are:\n
+        * New icon;\n
+        * Changed the package name;\n
+        * Removed additional screens that are not required for this project in particular;\n
+        * Added the about screen;\n
+        * Added Firebase notifications;\n
+        * Added a welcome screen;\n
+        * Added a dark theme;\n
+        * And other small changes."
+    </string>
+  <string name="library_traccar_libraryVersion">2.12</string>
+  <string name="library_traccar_libraryWebsite">https://github.com/traccar/traccar-manager-android</string>
+  <string name="library_traccar_licenseIds">apache_2_0</string>
+  <string name="library_traccar_isOpenSource">true</string>
+
+  <string name="aboutLibraries_description_showIcon">true</string>
+  <string name="aboutLibraries_description_showVersion">true</string>
+  <string name="aboutLibraries_description_text">Painel de controle para o site de administração de veículos https://rastreio.softquick.com.br/</string>
 </resources>

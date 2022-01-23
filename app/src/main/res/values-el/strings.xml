@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Εφαρμογή Traccar</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Εκκίνηση υπηρεσίας</string>
   <string name="shortcut_stop">Διακοπή υπηρεσίας</string>
   <string name="shortcut_sos">Αποστολή SOS</string>
-  <string name="channel_default">Κύριο κανάλι</string>
+  <string name="client_channel_default">Κύριο κανάλι</string>
   <string name="settings_id_title">Αναγνωριστικό συσκευής</string>
   <string name="settings_url_title">Διεύθυνση διακομιστή</string>
   <string name="settings_url_summary">Διεύθυνση διακομιστή παρακολούθησης</string>

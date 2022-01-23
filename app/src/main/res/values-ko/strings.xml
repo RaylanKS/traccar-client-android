@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar 클라이언트</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">서비스 시작</string>
   <string name="shortcut_stop">서비스 중지</string>
   <string name="shortcut_sos">SOS 신호 보내기</string>
-  <string name="channel_default">기본 채널</string>
+  <string name="client_channel_default">기본 채널</string>
   <string name="settings_id_title">장치 식별자</string>
   <string name="settings_url_title">서버 URL</string>
   <string name="settings_url_summary">위치 수집 서버 URL</string>

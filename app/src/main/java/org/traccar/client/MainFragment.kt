@@ -19,35 +19,21 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import android.webkit.URLUtil
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.preference.EditTextPreference
-import androidx.preference.EditTextPreferenceDialogFragmentCompat
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.TwoStatePreference
-import dev.doubledot.doki.ui.DokiActivity
-import java.util.*
-import kotlin.collections.HashSet
+import androidx.preference.*
+import br.com.softquick.rastreio.R
 
 class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
 
@@ -56,11 +42,9 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     private lateinit var alarmIntent: PendingIntent
     private var requestingPermissions: Boolean = false
 
+
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        if (BuildConfig.HIDDEN_APP && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            removeLauncherIcon()
-        }
         setHasOptionsMenu(true)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -70,7 +54,7 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
             newValue != null && newValue != ""
         }
         findPreference<Preference>(KEY_URL)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            newValue != null && validateServerURL(newValue.toString())
+            newValue != null
         }
         findPreference<Preference>(KEY_INTERVAL)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             try {
@@ -137,24 +121,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
     }
 
-    private fun removeLauncherIcon() {
-        val className = MainActivity::class.java.canonicalName!!.replace(".MainActivity", ".Launcher")
-        val componentName = ComponentName(requireActivity().packageName, className)
-        val packageManager = requireActivity().packageManager
-        if (packageManager.getComponentEnabledSetting(componentName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
-            packageManager.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP
-            )
-            val builder = AlertDialog.Builder(requireActivity())
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setMessage(getString(R.string.hidden_alert))
-            builder.setPositiveButton(android.R.string.ok, null)
-            builder.show()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         if (requestingPermissions) {
@@ -190,36 +156,24 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
             } else {
                 stopTrackingService()
             }
-            (requireActivity().application as MainApplication).handleRatingFlow(requireActivity())
         } else if (key == KEY_DEVICE) {
             findPreference<Preference>(KEY_DEVICE)?.summary = sharedPreferences.getString(KEY_DEVICE, null)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.status) {
-            startActivity(Intent(activity, StatusActivity::class.java))
-            return true
-        } else if (item.itemId == R.id.info) {
-            DokiActivity.start(requireContext())
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun initPreferences() {
         PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
         if (!sharedPreferences.contains(KEY_DEVICE)) {
-            val id = (Random().nextInt(900000) + 100000).toString()
-            sharedPreferences.edit().putString(KEY_DEVICE, id).apply()
-            findPreference<EditTextPreference>(KEY_DEVICE)?.text = id
+            val inputDialog = DeviceKeyInputDialog()
+            inputDialog.initialize(this)
+            inputDialog.show(parentFragmentManager, "key_dialog")
         }
         findPreference<Preference>(KEY_DEVICE)?.summary = sharedPreferences.getString(KEY_DEVICE, null)
+    }
+
+    fun onDeviceKeyInputDialogAccepted(input: String) {
+        sharedPreferences.edit().putString(KEY_DEVICE, input).apply()
+        initPreferences()
     }
 
     private fun showBackgroundLocationDialog(context: Context, onSuccess: () -> Unit) {
@@ -231,7 +185,8 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
         builder.setMessage(context.getString(R.string.request_background, option))
         builder.setPositiveButton(android.R.string.ok) { _, _ -> onSuccess() }
-        builder.setNegativeButton(android.R.string.cancel, null)
+        builder.setNeutralButton(R.string.tutorial) { _, _ -> br.com.softquick.rastreio.MainMenuHandler.openURL(HELP_URL, context)}
+        builder.setCancelable(false)
         builder.show()
     }
 
@@ -293,22 +248,10 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
     }
 
-    private fun validateServerURL(userUrl: String): Boolean {
-        val port = Uri.parse(userUrl).port
-        if (
-            URLUtil.isValidUrl(userUrl) &&
-            (port == -1 || port in 1..65535) &&
-            (URLUtil.isHttpUrl(userUrl) || URLUtil.isHttpsUrl(userUrl))
-        ) {
-            return true
-        }
-        Toast.makeText(activity, R.string.error_msg_invalid_url, Toast.LENGTH_LONG).show()
-        return false
-    }
-
     companion object {
         private val TAG = MainFragment::class.java.simpleName
         private const val ALARM_MANAGER_INTERVAL = 15000
+        private const val HELP_URL = "https://rastreio.softquick.com.br/location_help.php"
         const val KEY_DEVICE = "id"
         const val KEY_URL = "url"
         const val KEY_INTERVAL = "interval"

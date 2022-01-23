@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Client Traccar</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Porneste Serviciu</string>
   <string name="shortcut_stop">Opreste serviciu</string>
   <string name="shortcut_sos">Trimite SOS</string>
-  <string name="channel_default">Canal Principal</string>
+  <string name="client_channel_default">Canal Principal</string>
   <string name="settings_id_title">Identificare dispozitiv</string>
   <string name="settings_url_title">Adresa server</string>
   <string name="settings_url_summary">Adresa serverului de localizare</string>

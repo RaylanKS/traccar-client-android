@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar klient</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Start tjenesten</string>
   <string name="shortcut_stop">Stop tjenesten</string>
   <string name="shortcut_sos">Send SOS</string>
-  <string name="channel_default">Primær kanal</string>
+  <string name="client_channel_default">Primær kanal</string>
   <string name="settings_id_title">Enheds ID</string>
   <string name="settings_url_title">Server Adresse</string>
   <string name="settings_url_summary">Tracking server adresse</string>

@@ -16,6 +16,7 @@
 @file:Suppress("DEPRECATION", "StaticFieldLeak")
 package org.traccar.client
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.SQLException
@@ -102,6 +103,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
         }.execute()
     }
 
+    @SuppressLint("Range")
     fun selectPosition(): Position? {
         db.rawQuery("SELECT * FROM position ORDER BY id LIMIT 1", null).use { cursor ->
             if (cursor.count > 0) {

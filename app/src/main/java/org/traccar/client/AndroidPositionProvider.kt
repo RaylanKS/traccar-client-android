@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 package org.traccar.client
 
@@ -23,6 +24,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 
+@Suppress("unused")
 class AndroidPositionProvider(context: Context, listener: PositionListener) : PositionProvider(context, listener), LocationListener {
 
     private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager

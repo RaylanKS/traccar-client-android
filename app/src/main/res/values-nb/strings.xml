@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Klient</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Start tjeneste</string>
   <string name="shortcut_stop">Stopp tjeneste</string>
   <string name="shortcut_sos">Send SOS</string>
-  <string name="channel_default">Primer Kanal</string>
+  <string name="client_channel_default">Primer Kanal</string>
   <string name="settings_id_title">Enhetsidentifikasjon</string>
   <string name="settings_url_title">Tjener-nettadresse</string>
   <string name="settings_url_summary">Sproringstjener-nettadresse</string>

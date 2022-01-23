@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">Traccar Client</string>
-  <string name="app_logo">Traccar</string>
   <string name="shortcut_start">Käynnistä palvelu</string>
   <string name="shortcut_stop">Pysäytä palvelu</string>
   <string name="shortcut_sos">Lähetä SOS-viesti</string>
-  <string name="channel_default">Ensisijainen kanava</string>
+  <string name="client_channel_default">Ensisijainen kanava</string>
   <string name="settings_id_title">Laitteen ID</string>
   <string name="settings_url_title">Palvelimen URL</string>
   <string name="settings_url_summary">Paikannuspalvelimen URL-osoite</string>
