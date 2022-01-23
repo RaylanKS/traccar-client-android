@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var loadingLayout : LinearLayout
     lateinit var loadingProgressBar : ProgressBar
     lateinit var loadingFailLayout: LinearLayout
-    lateinit var
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
