@@ -25,7 +25,6 @@ import android.app.NotificationManager
 import android.content.IntentFilter
 import android.os.Build
 import androidx.multidex.MultiDexApplication
-import org.traccar.client.ServiceReceiver
 import org.traccar.client.TrackingService
 
 @Suppress("unused")
@@ -42,7 +41,7 @@ open class MainApplication : MultiDexApplication() {
         val filter = IntentFilter()
         filter.addAction(TrackingService.ACTION_STARTED)
         filter.addAction(TrackingService.ACTION_STOPPED)
-        registerReceiver(ServiceReceiver(), filter)
+        registerReceiver(org.traccar.client.ServiceReceiver(), filter)
 
         initializeFirebase()
     }
