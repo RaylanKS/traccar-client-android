@@ -1,18 +1,13 @@
-# [Schultz Rastreios for Android](https://rastreio.softquick.com.br/panel/)
+# [Schultz Rastreios for Android](https://rastreio.softquick.com.br)
 
-[![Get it on Google Play](http://www.tananaev.com/badges/google-play.svg)](https://play.google.com/store/apps/details?id=org.traccar.client) [![Get it on F-Droid](http://www.tananaev.com/badges/f-droid.svg)](https://f-droid.org/repository/browse/?fdid=org.traccar.client)
+## NOTICE
 
-## About
-
-Fork of
-
-## Overview
-
-Traccar Client is an Android GPS tracking application. It can work with Traccar open source server software.
+This is a modified fork of [Traccar Client for Android](https://github.com/traccar/traccar-client-android) and [Traccar Manager for Android](https://github.com/traccar/traccar-manager-android).
 
 ## Team
 
 - Anton Tananaev ([anton@traccar.org](mailto:anton@traccar.org))
+- Modifications: Raylan Klitzke Schultz
 
 ## License
 
