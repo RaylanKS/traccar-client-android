@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.client
 

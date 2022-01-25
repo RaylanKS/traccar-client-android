@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +17,7 @@
     <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT" />
     <uses-feature android:name="android.hardware.location.network" />
     <uses-feature android:name="android.hardware.location.gps" />
+
     <application
         android:allowBackup="false"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -34,7 +36,7 @@
             android:theme="@style/AppTheme"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ChooseAppActivity"
+            android:name=".ChooseModeActivity"
             android:exported="true"
             android:theme="@style/AppTheme"
             android:launchMode="singleTask" />
@@ -64,6 +66,7 @@
         <activity
             android:name="org.traccar.client.StatusActivity"
             android:exported="false"
+            android:theme="@style/AppTheme"
             android:launchMode="singleTask"/>
         <activity
             android:name="org.traccar.client.ShortcutActivity"

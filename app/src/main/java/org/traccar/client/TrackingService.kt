@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.client
 
@@ -24,6 +26,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
@@ -108,9 +111,10 @@ class TrackingService : Service() {
 
         @SuppressLint("UnspecifiedImmutableFlag")
         private fun createNotification(context: Context): Notification {
-            val builder = NotificationCompat.Builder(context, br.com.softquick.rastreio.MainApplication.CLIENT_CHANNEL)
+            val builder = NotificationCompat.Builder(context, context.getString(R.string.client_notification_channel_id))
                 .setSmallIcon(R.drawable.ic_stat_notify)
                 .setSound(null)
+                .setColor(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) context.getColor(R.color.accent) else Color.BLUE)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
             val intent = Intent(context, MainActivity::class.java)

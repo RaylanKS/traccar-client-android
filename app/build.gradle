@@ -1,7 +1,10 @@
+// Note that changes are made for this file by Raylan Klitzke Schultz
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin'
+
+def version = '1.0.0'
 
 aboutLibraries {
     includeAllLicenses = true
@@ -15,7 +18,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 3
-        versionName '0.2.0'
+        versionName version
         multiDexEnabled true
     }
 
@@ -35,13 +38,19 @@ android {
         regular {
             isDefault = true
         }
-        google
+        google {
+            versionName version + "-google"
+        }
     }
     buildTypes {
         release {
+            shrinkResources true
             minifyEnabled true
             debuggable false
             jniDebuggable false
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
     }
 
@@ -53,10 +62,11 @@ android {
     lint {
         checkReleaseBuilds false
     }
+    buildToolsVersion '31.0.0'
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.6.0-alpha01'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
@@ -64,9 +74,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.github.judemanutd:autostarter:1.1.0'
-    implementation('dev.doubledot.doki:library:0.0.1@aar') {
-        transitive = true
-    }
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.7.3'
     googleImplementation platform('com.google.firebase:firebase-bom:28.2.1')
@@ -79,7 +86,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.4.0"
     implementation "com.mikepenz:aboutlibraries-core:8.9.4"
     implementation "com.mikepenz:aboutlibraries:8.9.4"
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
 }
 

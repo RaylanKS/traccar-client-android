@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
 
     <color name="primary">#000077</color>
     <color name="primary_dark">#000035</color>
-    <color name="accent">#5252FF</color>
+    <color name="accent">#4444FF</color>
     <color name="light">#FAFAFA</color>
 
 </resources>

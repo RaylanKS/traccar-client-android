@@ -1,112 +1,121 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-  <string name="app_name">Schultz Rastreios</string>
-  <string name="app_logo">Traccar</string>
-  <string name="shortcut_start">Start service</string>
-  <string name="shortcut_stop">Stop service</string>
-  <string name="shortcut_sos">Send SOS</string>
-  <string name="client_channel_default">Tracking status</string>
-  <string name="settings_id_title">Device identifier</string>
-  <string name="settings_url_title">Server URL</string>
-  <string name="settings_url_summary">Tracking server URL</string>
-  <string name="settings_interval_title">Frequency</string>
-  <string name="settings_interval_summary">Reporting interval in seconds</string>
-  <string name="settings_distance_title">Distance</string>
-  <string name="settings_distance_summary">Reporting distance in meters</string>
-  <string name="settings_angle_title">Angle</string>
-  <string name="settings_angle_summary">Reporting angle in degrees</string>
-  <string name="settings_status_title">Service status</string>
-  <string name="settings_status_off">Start</string>
-  <string name="settings_status_on">Stop</string>
-  <string name="settings_status_off_summary">Service stopped</string>
-  <string name="settings_status_on_summary">Service running</string>
-  <string name="settings_buffer">Offline buffering</string>
-  <string name="settings_buffer_off_summary">Buffering off</string>
-  <string name="settings_buffer_on_summary">Buffering on</string>
-  <string name="settings_wakelock">Wake lock</string>
-  <string name="settings_wakelock_off_summary">Wake lock off</string>
-  <string name="settings_wakelock_on_summary">Wake lock on</string>
-  <string name="settings_accuracy_title">Location accuracy</string>
-  <string name="settings_accuracy_summary">Desired location accuracy</string>
-  <string name="settings_accuracy_high">High</string>
-  <string name="settings_accuracy_medium">Medium</string>
-  <string name="settings_accuracy_low">Low</string>
-  <string name="settings_foreground_title">Foreground service</string>
-  <string name="settings_foreground_summary">Increase service priority</string>
-  <string name="menu_status">Status</string>
-  <string name="menu_info">Info</string>
-  <string name="menu_shortcuts">Add shortcuts</string>
-  <string name="menu_clear">Clear</string>
-  <string name="status_service_create">Service started</string>
-  <string name="status_service_destroy">Service stopped</string>
-  <string name="status_send_success">Send successfully</string>
-  <string name="status_send_fail">Send failed</string>
-  <string name="status_location_update">Location update</string>
-  <string name="status_network_online">Network online</string>
-  <string name="status_network_offline">Network offline</string>
-  <string name="hidden_app_name">Device Settings</string>
-  <string name="hidden_alert">The app has been hidden. To open it again please dial 8722227 (TRACCAR).</string>
-  <string name="error_msg_invalid_url">Please enter a valid http:// or https:// URL</string>
-  <string name="request_exception">To continuously collect location data please turn off battery optimization for the app.</string>
-  <string name="request_background">To continuously collect location data please enable \"%s\" permission.</string>
-  <string name="request_background_option">Allow all the time</string>
-  <string name="request_device_key_dialog">Enter the device key you received from the administrator:</string>
-  <string name="ok">OK</string>
-  <string name="device_key_textfield_title">Device key</string>
-  <string name="client_notification_text_info">Click here to configure</string>
-  <string name="tutorial">Tutorial</string>
-  <string name="contact">Contact</string>
-  <string name="about_menu">About</string>
+    <string name="app_name">Schultz Rastreios</string>
+    <string name="app_logo">Traccar</string>
+    <string name="shortcut_start">Start service</string>
+    <string name="shortcut_stop">Stop service</string>
+    <string name="shortcut_sos">Send SOS</string>
+    <string name="client_channel_default">Tracking status</string>
+    <string name="settings_id_title">Device identifier</string>
+    <string name="settings_url_title">Server URL</string>
+    <string name="settings_url_summary">Tracking server URL</string>
+    <string name="settings_interval_title">Frequency</string>
+    <string name="settings_interval_summary">Reporting interval in seconds</string>
+    <string name="settings_distance_title">Distance</string>
+    <string name="settings_distance_summary">Reporting distance in meters</string>
+    <string name="settings_angle_title">Angle</string>
+    <string name="settings_angle_summary">Reporting angle in degrees</string>
+    <string name="settings_status_title">Service status</string>
+    <string name="settings_status_off">Start</string>
+    <string name="settings_status_on">Stop</string>
+    <string name="settings_status_off_summary">Service stopped</string>
+    <string name="settings_status_on_summary">Service running</string>
+    <string name="settings_buffer">Offline buffering</string>
+    <string name="settings_buffer_off_summary">Buffering off</string>
+    <string name="settings_buffer_on_summary">Buffering on</string>
+    <string name="settings_wakelock">Wake lock</string>
+    <string name="settings_wakelock_off_summary">Wake lock off</string>
+    <string name="settings_wakelock_on_summary">Wake lock on</string>
+    <string name="settings_accuracy_title">Location accuracy</string>
+    <string name="settings_accuracy_summary">Desired location accuracy</string>
+    <string name="settings_accuracy_high">High</string>
+    <string name="settings_accuracy_medium">Medium</string>
+    <string name="settings_accuracy_low">Low</string>
+    <string name="settings_foreground_title">Foreground service</string>
+    <string name="settings_foreground_summary">Increase service priority</string>
+    <string name="menu_status">Status</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_shortcuts">Add shortcuts</string>
+    <string name="menu_clear">Clear</string>
+    <string name="status_service_create">Service started</string>
+    <string name="status_service_destroy">Service stopped</string>
+    <string name="status_send_success">Send successfully</string>
+    <string name="status_send_fail">Send failed</string>
+    <string name="status_location_update">Location update</string>
+    <string name="status_network_online">Network online</string>
+    <string name="status_network_offline">Network offline</string>
+    <string name="hidden_app_name">Device Settings</string>
+    <string name="hidden_alert">The app has been hidden. To open it again please dial 8722227 (TRACCAR).</string>
+    <string name="error_msg_invalid_url">Please enter a valid http:// or https:// URL</string>
+    <string name="request_exception">To continuously collect location data please turn off battery optimization for the app.</string>
+    <string name="request_background">To continuously collect location data please enable \"%s\" permission.</string>
+    <string name="request_background_option">Allow all the time</string>
+    <string name="request_device_key_dialog">Enter the device key you received from the administrator:</string>
+    <string name="ok">OK</string>
+    <string name="device_key_textfield_title">Device key</string>
+    <string name="client_notification_text_info">Click here to configure</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="contact">Contact</string>
+    <string name="about_menu">About</string>
 
 
-  <string name="button_start">Start</string>
-  <string name="error_connection">Error connecting to server</string>
-  <string name="file_browser">File browser</string>
-  <string name="manager_notification_channel">Security alerts</string>
-  <string name="permission_location_rationale">App requires location permission to show this device on the map.</string>
+    <string name="button_start">Start</string>
+    <string name="error_connection">Error connecting to server</string>
+    <string name="file_browser">File browser</string>
+    <string name="manager_notification_channel">Security alerts</string>
+    <string name="permission_location_rationale">App requires location permission to show this device on the map.</string>
 
-  <!-- Terms dialog box -->
-  <string name="i_accept_the_terms">I accept the Terms of Use</string>
-  <string name="i_accept_the_privacy">I accept the Privacy Polity</string>
-  <string name="terms_info">To use the app, you need to accept the Terms of Use and the Privacy Polity.</string>
-  <string name="terms_of_use">Terms of Use (Portuguese language)</string>
-  <string name="privacy_policy">Privacy Polity (Portuguese language)</string>
-  <string name="data_collection_info">We may collect data. Check the Privacy Policy for more info.</string>
-  <string name="next">Next</string>
-  <string name="exit">Exit</string>
-  <string name="retry">Retry</string>
+    <string name="manager_notification_channel_id">manager_channel_default</string>
+    <string name="client_notification_channel_id">client_channel_default</string>
 
-  <string name="select_app_text">Select an option:</string>
-  <string name="select_track_other_devices">Show my tracked devices</string>
-  <string name="select_track_this_device">Track this device</string>
+    <!-- Terms dialog box -->
+    <string name="i_accept_the_terms">I accept the Terms of Use</string>
+    <string name="i_accept_the_privacy">I accept the Privacy Polity</string>
+    <string name="terms_info">To use the app, you need to accept the Terms of Use and the Privacy Polity.</string>
+    <string name="terms_of_use">Terms of Use (Portuguese language)</string>
+    <string name="privacy_policy">Privacy Polity (Portuguese language)</string>
+    <string name="data_collection_info">We may collect data. Check the Privacy Policy for more info.</string>
+    <string name="next">Next</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
 
-  <string name="about_app">About the app</string>
-  <string name="already_in_main_screen">Already in main screen</string>
+    <string name="select_app_text">Select an option:</string>
+    <string name="select_track_other_devices">Show my tracked devices</string>
+    <string name="select_track_this_device">Track this device</string>
 
-  <string name="home_screen">Home screen</string>
+    <string name="about_app">About the app</string>
+    <string name="already_in_main_screen">Already in main screen</string>
 
-  <!-- Custom licenses -->
-  <string name="define_plu_traccar">2021;Traccar</string>
-  <string name="library_traccar_author">Anton Tananaev</string>
-  <string name="library_traccar_authorWebsite">https://www.traccar.org/</string>
-  <string name="library_traccar_libraryName">Traccar Manager for Android</string>
-  <string name="library_traccar_libraryDescription">"Traccar Manager is a mobile application to manage GPS tracking devices. It requires a
-        Traccar server instance to work.\nModifications made for this project (Schultz Rastreios) are:\n
-        * New icon;\n
-        * Changed the package name;\n
-        * Removed additional screens that are not required for this project in particular;\n
-        * Added the about screen;\n
-        * Added Firebase notifications;\n
-        * Added a welcome screen;\n
-        * Added a dark theme;\n
-        * And other small changes."
+    <string name="home_screen">Home screen</string>
+
+    <!-- Custom licenses -->
+    <string name="define_plu_traccarmanager">2021;Traccar</string>
+    <string name="library_traccarmanager_author">Anton Tananaev</string>
+    <string name="library_traccarmanager_authorWebsite">https://www.traccar.org/</string>
+    <string name="library_traccarmanager_libraryName">Traccar Manager for Android</string>
+    <string name="library_traccarmanager_libraryDescription">"Traccar Manager is a mobile application to manage GPS tracking devices.
+        It requires a Traccar server instance to work."
     </string>
-  <string name="library_traccar_libraryVersion">2.12</string>
-  <string name="library_traccar_libraryWebsite">https://github.com/traccar/traccar-manager-android</string>
-  <string name="library_traccar_licenseIds">apache_2_0</string>
-  <string name="library_traccar_isOpenSource">true</string>
+    <string name="library_traccarmanager_libraryVersion">2.19</string>
+    <string name="library_traccarmanager_libraryWebsite">https://github.com/traccar/traccar-manager-android</string>
+    <string name="library_traccarmanager_licenseIds">apache_2_0</string>
+    <string name="library_traccarmanager_isOpenSource">true</string>
 
-  <string name="aboutLibraries_description_showIcon">true</string>
-  <string name="aboutLibraries_description_showVersion">true</string>
-  <string name="aboutLibraries_description_text">Painel de controle para o site de administração de veículos https://rastreio.softquick.com.br/</string>
+    <string name="define_plu_traccarclient">2021;Traccar</string>
+    <string name="library_traccarclient_author">Anton Tananaev</string>
+    <string name="library_traccarclient_authorWebsite">https://www.traccar.org/</string>
+    <string name="library_traccarclient_libraryName">Traccar Client for Android</string>
+    <string name="library_traccarclient_libraryDescription">"Traccar Client is an Android GPS tracking application. It can work with Traccar open source server software."
+    </string>
+    <string name="library_traccarclient_libraryVersion">6.15</string>
+    <string name="library_traccarclient_libraryWebsite">https://github.com/traccar/traccar-client-android</string>
+    <string name="library_traccarclient_licenseIds">apache_2_0</string>
+    <string name="library_traccarclient_isOpenSource">true</string>
+
+
+    <string name="aboutLibraries_description_showIcon">true</string>
+    <string name="aboutLibraries_description_showVersion">true</string>
+    <string name="aboutLibraries_description_text"><![CDATA[Tracking manager and client for <a href="https://rastreio.softquick.com.br">rastreio.softquick.com.br</a>.<br>Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.
+    <a href="https://github.com/RaylanKS/traccar-client-android">Source code.</a><br>NOTICE: This app contains modified code from <a href="https://github.com/traccar/traccar-manager-android">Traccar Manager for Android</a> and <a href="https://github.com/traccar/traccar-client-android">Traccar Client for Android</a>. Both are licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. Check below for more info.]]></string>
 </resources>

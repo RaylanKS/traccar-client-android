@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.client
 
@@ -52,9 +54,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
 
         findPreference<Preference>(KEY_DEVICE)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             newValue != null && newValue != ""
-        }
-        findPreference<Preference>(KEY_URL)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            newValue != null
         }
         findPreference<Preference>(KEY_INTERVAL)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             try {
@@ -140,7 +139,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
 
     private fun setPreferencesEnabled(enabled: Boolean) {
         findPreference<Preference>(KEY_DEVICE)?.isEnabled = enabled
-        findPreference<Preference>(KEY_URL)?.isEnabled = enabled
         findPreference<Preference>(KEY_INTERVAL)?.isEnabled = enabled
         findPreference<Preference>(KEY_DISTANCE)?.isEnabled = enabled
         findPreference<Preference>(KEY_ANGLE)?.isEnabled = enabled
@@ -253,7 +251,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         private const val ALARM_MANAGER_INTERVAL = 15000
         private const val HELP_URL = "https://rastreio.softquick.com.br/location_help.php"
         const val KEY_DEVICE = "id"
-        const val KEY_URL = "url"
         const val KEY_INTERVAL = "interval"
         const val KEY_DISTANCE = "distance"
         const val KEY_ANGLE = "angle"

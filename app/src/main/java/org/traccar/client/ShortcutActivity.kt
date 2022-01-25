@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.client
 
@@ -79,8 +81,7 @@ class ShortcutActivity : AppCompatActivity() {
     private fun sendAlarm() {
         PositionProviderFactory.create(this, object : PositionListener {
             override fun onPositionUpdate(position: Position) {
-                val preferences = PreferenceManager.getDefaultSharedPreferences(this@ShortcutActivity)
-                val request = formatRequest(preferences.getString(MainFragment.KEY_URL, null)!!, position, ALARM_SOS)
+                val request = formatRequest(getString(R.string.settings_url_default_value), position, ALARM_SOS)
                 sendRequestAsync(request, object : RequestHandler {
                     override fun onComplete(success: Boolean) {
                         if (success) {

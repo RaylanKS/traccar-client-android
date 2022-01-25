@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <network-security-config>
     <base-config cleartextTrafficPermitted="false">
         <trust-anchors>

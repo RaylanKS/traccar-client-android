@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
 
     <string name="settings_url_default_value" translatable="false">https://rastreio.softquick.com.br:5555</string>

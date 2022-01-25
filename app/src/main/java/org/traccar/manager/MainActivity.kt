@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.manager
 
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainFragment: MainFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_web)
         mainFragment = MainFragment()
         mainFragment.setMainActivity(this)
         val toolbar = findViewById<Toolbar>(R.id.mainToolbar)

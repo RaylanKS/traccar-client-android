@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 package org.traccar.client
 
@@ -36,7 +38,7 @@ class TrackingController(private val context: Context) : PositionListener, Netwo
     private val databaseHelper = DatabaseHelper(context)
     private val networkManager = NetworkManager(context, this)
 
-    private val url: String = preferences.getString(MainFragment.KEY_URL, context.getString(R.string.settings_url_default_value))!!
+    private val url: String = context.getString(R.string.settings_url_default_value)
     private val buffer: Boolean = preferences.getBoolean(MainFragment.KEY_BUFFER, true)
 
     private var isOnline = networkManager.isOnline

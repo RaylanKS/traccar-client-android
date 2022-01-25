@@ -1,3 +1,20 @@
+/*
+ * Copyright 2021 - 2022 Raylan Klitzke Schultz
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package br.com.softquick.rastreio
 
 import android.app.Activity
@@ -52,14 +69,14 @@ object MainMenuHandler {
                     MainActivity::class.java // To not bypass the Accept Terms screen.
                     -> Toast.makeText(activity, activity.getString(R.string.terms_info), Toast.LENGTH_LONG)
                         .show()
-                    ChooseAppActivity::class.java // When already in main screen.
+                    ChooseModeActivity::class.java // When already in main screen.
                     -> Toast.makeText(
                         activity,
                         activity.getString(R.string.already_in_main_screen),
                         Toast.LENGTH_LONG
                     ).show()
                     else -> {
-                        val intent = Intent(activity, ChooseAppActivity::class.java)
+                        val intent = Intent(activity, ChooseModeActivity::class.java)
                         // Open ChooseAppActivity without opening the last activity again
                         intent.putExtra("reset", true)
                         activity.startActivity(intent)
@@ -103,7 +120,14 @@ object MainMenuHandler {
     // Show the license info activity
     fun showLicensesActivity(context: Context?) {
         val libBuilder = LibsBuilder()
-        libBuilder.start(context!!)
+            .withActivityTitle(context?.getString(R.string.about_app)!!)
+            .withLicenseShown(true)
+            .withAboutAppName(context.getString(R.string.app_name))
+            .withAboutVersionShown(true)
+            .withAboutVersionShownName(true)
+            .withAboutVersionShownCode(false)
+            .withSearchEnabled(true)
+        libBuilder.start(context)
     }
 
     private const val CONTACT_URL = "https://wa.me/+5527997894471"

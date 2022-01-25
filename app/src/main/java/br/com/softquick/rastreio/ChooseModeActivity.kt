@@ -18,6 +18,7 @@ package br.com.softquick.rastreio
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -25,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.softquick.rastreio.MainMenuHandler.handleOnCreateOptionsMenu
 import br.com.softquick.rastreio.MainMenuHandler.handleOnOptionsItemSelected
 
-class ChooseAppActivity : AppCompatActivity() {
+class ChooseModeActivity : AppCompatActivity() {
     private lateinit var managerIntent: Intent
     private lateinit var clientIntent: Intent
 
@@ -42,6 +43,13 @@ class ChooseAppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         managerIntent = Intent(this, org.traccar.manager.MainActivity::class.java)
         clientIntent = Intent(this, org.traccar.client.MainActivity::class.java)
+
+        // If terms/privacy version is not checked
+        if (MainActivity.currentTermsVersion < 0 || MainActivity.currentPrivacyVersion < 0) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
 
         // Get the last user choice of activity
         val appChoice: Int = if (intent.extras != null && intent.extras!!.getBoolean(

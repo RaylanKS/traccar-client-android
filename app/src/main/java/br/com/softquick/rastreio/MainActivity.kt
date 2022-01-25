@@ -16,10 +16,8 @@
  */
 package br.com.softquick.rastreio
 
-import android.accounts.NetworkErrorException
 import android.content.Intent
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -34,11 +32,11 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-
     lateinit var termsLayout : LinearLayout
     lateinit var loadingLayout : LinearLayout
     lateinit var loadingProgressBar : ProgressBar
     lateinit var loadingFailLayout: LinearLayout
+    lateinit var tryAgainButton : Button
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +45,10 @@ class MainActivity : AppCompatActivity() {
         acceptedTermsVersion = preferences.getInt("terms_accepted_version", -1)
         acceptedPrivacyVersion = preferences.getInt("privacy_accepted_version", -1)
 
-        termsLayout = findViewById<LinearLayout>(R.id.accept_terms_layout)
-        loadingLayout = findViewById<LinearLayout>(R.id.loading_terms_layout)
-        loadingProgressBar = findViewById<ProgressBar>(R.id.loading_terms_progress_bar)
-        loadingFailLayout = findViewById<LinearLayout>(R.id.loading_terms_fail_layout)
+        termsLayout = findViewById(R.id.accept_terms_layout)
+        loadingLayout = findViewById(R.id.loading_terms_layout)
+        loadingProgressBar = findViewById(R.id.loading_terms_progress_bar)
+        loadingFailLayout = findViewById(R.id.loading_terms_fail_layout)
 
         val httpClient = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -68,15 +66,22 @@ class MainActivity : AppCompatActivity() {
             .post(formBody)
             .build()
 
+        tryAgainButton = findViewById(R.id.terms_retry_load)
+        tryAgainButton.setOnClickListener { requestTermsVersionCheck(httpClient, request) }
+
+        requestTermsVersionCheck(httpClient, request)
+
+    }
+
+    private fun requestTermsVersionCheck(httpClient : OkHttpClient, request : Request) {
+        loadingFailLayout.visibility = View.GONE
+        loadingProgressBar.visibility = View.VISIBLE
         httpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 onError()
                 Log.e("HttpError","Request failure: ${e.stackTrace}")
             }
             override fun onResponse(call: Call, response: Response) {
-                onError()
-                Log.e("HttpError","Invalid response from server: $response")
-                return;
                 if (!response.isSuccessful) {
                     onError()
                     Log.e("HttpError","Invalid response from server: $response")
@@ -87,18 +92,14 @@ class MainActivity : AppCompatActivity() {
                 val versionsJsonObject = mainJsonObject.getJSONObject("versions")
                 currentTermsVersion = versionsJsonObject.getInt("terms_version")
                 currentPrivacyVersion = versionsJsonObject.getInt("privacy_version")
-                val appVersion = versionsJsonObject.getInt("app_version")
+                // val appVersion = versionsJsonObject.getInt("app_version")
 
                 if (currentTermsVersion <= acceptedTermsVersion && currentPrivacyVersion <= acceptedPrivacyVersion)
                     next()
-                else {
-                    loadingLayout.visibility = View.GONE
-                    termsLayout.visibility = View.VISIBLE
-                    initializeTermsLayoutCode()
-                }
+                else
+                    runOnUiThread { initializeTermsLayoutCode() }
             }
         })
-
     }
 
     private fun onError() {
@@ -114,49 +115,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeTermsLayoutCode() {
-        runOnUiThread {
+        loadingLayout.visibility = View.GONE
+        termsLayout.visibility = View.VISIBLE
+        // Get layout contents
+        val acceptTermsCheckbox = findViewById<CheckBox>(R.id.accept_terms_checkbox)
+        acceptTermsCheckbox.isChecked =
+            false // For safety reasons (if checkbox is checked by accident on the layout xml file)
+        // Same for privacy policy checkbox
+        val acceptPrivacyCheckbox = findViewById<CheckBox>(R.id.accept_privacy_checkbox)
+        acceptPrivacyCheckbox.isChecked = false
 
-            // Get layout contents
-            val acceptTermsCheckbox = findViewById<CheckBox>(R.id.accept_terms_checkbox)
-            acceptTermsCheckbox.isChecked =
-                false // For safety reasons (if checkbox is checked by accident on the layout xml file)
-            // Same for privacy policy checkbox
-            val acceptPrivacyCheckbox = findViewById<CheckBox>(R.id.accept_privacy_checkbox)
-            acceptPrivacyCheckbox.isChecked = false
+        val termosUso = findViewById<Button>(R.id.botaoTermosUso)
+        val privacidade = findViewById<Button>(R.id.botaoPoliticaPrivacidade)
+        val continuar = findViewById<Button>(R.id.terms_next_button)
+        val sair = findViewById<Button>(R.id.terms_exit_button)
 
-            val termosUso = findViewById<Button>(R.id.botaoTermosUso)
-            val privacidade = findViewById<Button>(R.id.botaoPoliticaPrivacidade)
-            val continuar = findViewById<Button>(R.id.terms_next_button)
-            val sair = findViewById<Button>(R.id.terms_exit_button)
-
-            // Set events
-            acceptTermsCheckbox.setOnCheckedChangeListener { _: CompoundButton?, _: Boolean ->
-                updateNextButtonCheckedStatus(
-                    acceptTermsCheckbox.isChecked,
-                    acceptPrivacyCheckbox.isChecked,
-                    continuar
-                )
-            }
-            acceptPrivacyCheckbox.setOnCheckedChangeListener { _: CompoundButton?, _: Boolean ->
-                updateNextButtonCheckedStatus(
-                    acceptTermsCheckbox.isChecked,
-                    acceptPrivacyCheckbox.isChecked,
-                    continuar
-                )
-            }
-
-            termosUso.setOnClickListener { MainMenuHandler.openURL(URL_TERMS_OF_USE, this) }
-            privacidade.setOnClickListener { MainMenuHandler.openURL(URL_PRIVACY_POLITY, this) }
-            continuar.setOnClickListener {
-                if (updateNextButtonCheckedStatus(
-                        acceptTermsCheckbox.isChecked,
-                        acceptPrivacyCheckbox.isChecked,
-                        continuar
-                    )
-                ) next()
-            }
-            sair.setOnClickListener { finish() }
+        // Set events
+        acceptTermsCheckbox.setOnCheckedChangeListener { _: CompoundButton?, _: Boolean ->
+            updateNextButtonCheckedStatus(
+                acceptTermsCheckbox.isChecked,
+                acceptPrivacyCheckbox.isChecked,
+                continuar
+            )
         }
+        acceptPrivacyCheckbox.setOnCheckedChangeListener { _: CompoundButton?, _: Boolean ->
+            updateNextButtonCheckedStatus(
+                acceptTermsCheckbox.isChecked,
+                acceptPrivacyCheckbox.isChecked,
+                continuar
+            )
+        }
+
+        termosUso.setOnClickListener { MainMenuHandler.openURL(URL_TERMS_OF_USE, this) }
+        privacidade.setOnClickListener { MainMenuHandler.openURL(URL_PRIVACY_POLITY, this) }
+        continuar.setOnClickListener {
+            if (updateNextButtonCheckedStatus(
+                    acceptTermsCheckbox.isChecked,
+                    acceptPrivacyCheckbox.isChecked,
+                    continuar
+                )
+            ) next()
+        }
+        sair.setOnClickListener { finish() }
     }
 
     private fun updateNextButtonCheckedStatus(termsChecked : Boolean, privacyChecked : Boolean, nextButton : Button) : Boolean {
@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         preferences.edit().putInt("terms_accepted_version", acceptedTermsVersion).apply()
         preferences.edit().putInt("privacy_accepted_version", acceptedPrivacyVersion).apply()
 
-        val intent = Intent(this, ChooseAppActivity::class.java)
+        val intent = Intent(this, ChooseModeActivity::class.java)
         startActivity(intent)
         finish()
         return true
@@ -190,11 +190,11 @@ class MainActivity : AppCompatActivity() {
 
         lateinit var preferences: SharedPreferences
 
-        private var acceptedTermsVersion = -1
-        private var acceptedPrivacyVersion = -1
+        var acceptedTermsVersion = -1
+        var acceptedPrivacyVersion = -1
 
-        private var currentTermsVersion = -1
-        private var currentPrivacyVersion = -1
+        var currentTermsVersion = -1
+        var currentPrivacyVersion = -1
 
         const val URL_TERMS_OF_USE = "https://rastreio.softquick.com.br/termos_de_uso.html"
         const val URL_PRIVACY_POLITY = "https://rastreio.softquick.com.br/politica_de_privacidade.html"
