@@ -16,6 +16,7 @@
  * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 @file:Suppress("DEPRECATION", "StaticFieldLeak")
+
 package org.traccar.client
 
 import android.annotation.SuppressLint
@@ -27,13 +28,15 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.AsyncTask
 import java.sql.Date
 
-class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context?) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     interface DatabaseHandler<T> {
         fun onComplete(success: Boolean, result: T)
     }
 
-    private abstract class DatabaseAsyncTask<T>(val handler: DatabaseHandler<T?>) : AsyncTask<Unit, Unit, T?>() {
+    private abstract class DatabaseAsyncTask<T>(val handler: DatabaseHandler<T?>) :
+        AsyncTask<Unit, Unit, T?>() {
 
         private var error: RuntimeException? = null
 

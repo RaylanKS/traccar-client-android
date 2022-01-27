@@ -32,7 +32,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        return MainMenuHandler.handleOnCreateOptionsMenu(menu, this, intArrayOf(R.id.menu_home_screen, R.id.menu_status))
+        return MainMenuHandler.handleOnCreateOptionsMenu(
+            menu,
+            this,
+            intArrayOf(R.id.menu_home_screen, R.id.menu_status)
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

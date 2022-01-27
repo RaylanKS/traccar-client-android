@@ -53,7 +53,7 @@ class ManagerMessagingService : FirebaseMessagingService() {
             .setSmallIcon(R.drawable.ic_stat_notify)
             .setContentTitle(remoteMessage.notification?.title)
             .setContentText(remoteMessage.notification?.body)
-            .setColor(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) getColor(R.color.accent) else Color.BLUE)
+            .setColor(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) getColor(R.color.accent) else Color.BLUE)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
         (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(

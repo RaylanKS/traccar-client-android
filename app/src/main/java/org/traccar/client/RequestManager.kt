@@ -16,6 +16,7 @@
  * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 @file:Suppress("DEPRECATION")
+
 package org.traccar.client
 
 import android.os.AsyncTask
@@ -39,7 +40,8 @@ object RequestManager {
             connection.requestMethod = "POST"
             connection.connect()
             inputStream = connection.inputStream
-            while (inputStream.read() != -1) {}
+            while (inputStream.read() != -1) {
+            }
             true
         } catch (error: IOException) {
             false
@@ -60,7 +62,8 @@ object RequestManager {
         fun onComplete(success: Boolean)
     }
 
-    private class RequestAsyncTask(private val handler: RequestHandler) : AsyncTask<String, Unit, Boolean>() {
+    private class RequestAsyncTask(private val handler: RequestHandler) :
+        AsyncTask<String, Unit, Boolean>() {
 
         override fun doInBackground(vararg request: String): Boolean {
             return sendRequest(request[0])

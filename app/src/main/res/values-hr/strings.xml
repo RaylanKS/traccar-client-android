@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version='1.0' encoding='UTF-8'?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
     <string name="shortcut_start">Pokreni servis</string>
     <string name="shortcut_stop">Zaustavi servis</string>

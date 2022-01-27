@@ -18,42 +18,71 @@
 package org.traccar.client
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.DialogFragment
 import br.com.softquick.rastreio.R
 
 class DeviceKeyInputDialog : DialogFragment() {
-    var mainFragment: MainFragment? = null
-    fun initialize(fragment: MainFragment?) {
+
+    lateinit var mainFragment: MainFragment
+    fun initialize(fragment: MainFragment) {
         mainFragment = fragment
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = context
-        val inflater = requireActivity().layoutInflater
-        val dialogView = inflater.inflate(R.layout.input_dialog, null)
-        return if (context != null && mainFragment != null) {
+        return if (context != null) {
+            val inflater = requireActivity().layoutInflater
+            val dialogView = inflater.inflate(R.layout.input_dialog, null)
+            val locationWarningTextView =
+                dialogView.findViewById<TextView>(R.id.input_dialog_message_location_warning)
+
+            // Format text as html
+            locationWarningTextView.text = HtmlCompat.fromHtml(
+                getString(R.string.location_alert_user),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+            // Follow link in text
+            locationWarningTextView.movementMethod = LinkMovementMethod.getInstance()
+
+            val okButton = dialogView.findViewById<Button>(R.id.input_dialog_ok_button)
+            val cancelButton = dialogView.findViewById<Button>(R.id.input_dialog_cancel_button)
+            val contactButton = dialogView.findViewById<Button>(R.id.input_dialog_contact_button)
+
+            val checkBox = dialogView.findViewById<CheckBox>(R.id.input_dialog_checkbox)
+
+            okButton.isEnabled = false
+
             val builder = AlertDialog.Builder(context)
             builder.setMessage(R.string.device_key_textfield_title)
                 .setView(dialogView)
-                .setCancelable(false)
-                .setNeutralButton(R.string.contact) { _, _ -> br.com.softquick.rastreio.MainMenuHandler.openContactURL(context)}
-                .setPositiveButton(R.string.ok) { _: DialogInterface?, _: Int ->
-                    val inputText = dialogView.findViewById<EditText>(R.id.device_key_text)
-                    mainFragment!!.onDeviceKeyInputDialogAccepted(inputText.text.toString())
-                }
+
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                okButton.isEnabled = isChecked
+            }
+
+            okButton.setOnClickListener {
+                val inputText = dialogView.findViewById<EditText>(R.id.device_key_text)
+                mainFragment.onDeviceKeyInputDialogAccepted(inputText.text.toString())
+            }
+            cancelButton.setOnClickListener {
+                mainFragment.returnToMainMenu()
+            }
+            contactButton.setOnClickListener {
+                br.com.softquick.rastreio.MainMenuHandler.openContactURL(context)
+            }
+
+
             builder.create()
         } else {
-            if (context == null) throw NullPointerException("Context is null") else throw NullPointerException(
-                "mainFragment is null"
-            )
+            throw NullPointerException(javaClass.name + ": context is null")
         }
-    }
-
-    companion object {
-        private const val CONTACT_URL = "https://wa.me/+5527997894471"
     }
 }

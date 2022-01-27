@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version="1.0" encoding="utf-8"?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
     <dimen name="spacing_normal">16dp</dimen>
 </resources>

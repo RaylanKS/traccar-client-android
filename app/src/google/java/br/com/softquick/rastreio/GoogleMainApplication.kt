@@ -49,7 +49,9 @@ class GoogleMainApplication : MainApplication() {
             managerChannel.lightColor = Color.BLUE
             managerChannel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
 
-            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(managerChannel)
+            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                managerChannel
+            )
         }
     }
 

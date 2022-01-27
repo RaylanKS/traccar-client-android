@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version='1.0' encoding='UTF-8'?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Schultz Rastreios</string>
     <string name="app_logo">Traccar</string>
@@ -19,8 +18,9 @@
     <string name="settings_status_title">Service status</string>
     <string name="settings_status_off">Start</string>
     <string name="settings_status_on">Stop</string>
-    <string name="settings_status_off_summary">Service stopped</string>
-    <string name="settings_status_on_summary">Service running</string>
+    <string name="settings_status_off_summary">Not being tracked (turn this on to start sending my location in background)</string>
+    <string name="settings_status_on_summary">Being tracked (turn this off to stop sending my location in background)</string>
+    <string name="hidden_alert">The app is now hidden. To open again type 8722227 (TRACCAR).</string>
     <string name="settings_buffer">Offline buffering</string>
     <string name="settings_buffer_off_summary">Buffering off</string>
     <string name="settings_buffer_on_summary">Buffering on</string>
@@ -46,10 +46,9 @@
     <string name="status_network_online">Network online</string>
     <string name="status_network_offline">Network offline</string>
     <string name="hidden_app_name">Device Settings</string>
-    <string name="hidden_alert">The app has been hidden. To open it again please dial 8722227 (TRACCAR).</string>
     <string name="error_msg_invalid_url">Please enter a valid http:// or https:// URL</string>
     <string name="request_exception">To continuously collect location data please turn off battery optimization for the app.</string>
-    <string name="request_background">To continuously collect location data please enable \"%s\" permission.</string>
+    <string name="request_background">To your device be tracked while in background, please enable the \"%s\" permission.</string>
     <string name="request_background_option">Allow all the time</string>
     <string name="request_device_key_dialog">Enter the device key you received from the administrator:</string>
     <string name="ok">OK</string>
@@ -59,12 +58,11 @@
     <string name="contact">Contact</string>
     <string name="about_menu">About</string>
 
-
     <string name="button_start">Start</string>
     <string name="error_connection">Error connecting to server</string>
     <string name="file_browser">File browser</string>
     <string name="manager_notification_channel">Security alerts</string>
-    <string name="permission_location_rationale">App requires location permission to show this device on the map.</string>
+    <string name="permission_location_rationale">The app requires location permission to show your device on the map. Your location is not collected neither shared in this situation.</string>
 
     <string name="manager_notification_channel_id">manager_channel_default</string>
     <string name="client_notification_channel_id">client_channel_default</string>
@@ -80,6 +78,13 @@
     <string name="exit">Exit</string>
     <string name="retry">Retry</string>
 
+    <string name="location_alert_user"><![CDATA[If you continue, you accept that your location
+  will be sent to the server in the background. You can disable it at any time from this screen
+  or by removing the permission. A notification will be displayed when you are being tracked. Your location
+  will be shown to accounts associated with this device key. You will be able to see your location by having an account.
+  It is not shared with third parties unless you do so. For more information, please see the
+  <a href="https://rastreio.softquick.com.br/politica_de_privacidade.html">Privacy Policy (Portuguese)</a>.]]></string>
+    <string name="i_accept_being_tracked_in_background">I agree to send my location while in the background</string>
     <string name="select_app_text">Select an option:</string>
     <string name="select_track_other_devices">Show my tracked devices</string>
     <string name="select_track_this_device">Track this device</string>
@@ -112,7 +117,6 @@
     <string name="library_traccarclient_libraryWebsite">https://github.com/traccar/traccar-client-android</string>
     <string name="library_traccarclient_licenseIds">apache_2_0</string>
     <string name="library_traccarclient_isOpenSource">true</string>
-
 
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>

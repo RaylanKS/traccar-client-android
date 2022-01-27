@@ -77,7 +77,8 @@ class TrackingController(private val context: Context) : PositionListener, Netwo
 
     override fun onPositionError(error: Throwable) {}
     override fun onNetworkUpdate(isOnline: Boolean) {
-        val message = if (isOnline) R.string.status_network_online else R.string.status_network_offline
+        val message =
+            if (isOnline) R.string.status_network_online else R.string.status_network_offline
         StatusActivity.addMessage(context.getString(message))
         if (!this.isOnline && isOnline) {
             read()
@@ -97,10 +98,10 @@ class TrackingController(private val context: Context) : PositionListener, Netwo
         var formattedAction: String = action
         if (position != null) {
             formattedAction +=
-                    " (id:" + position.id +
-                    " time:" + position.time.time / 1000 +
-                    " lat:" + position.latitude +
-                    " lon:" + position.longitude + ")"
+                " (id:" + position.id +
+                        " time:" + position.time.time / 1000 +
+                        " lat:" + position.latitude +
+                        " lon:" + position.longitude + ")"
         }
         Log.d(TAG, formattedAction)
     }
@@ -125,7 +126,11 @@ class TrackingController(private val context: Context) : PositionListener, Netwo
             override fun onComplete(success: Boolean, result: Position?) {
                 if (success) {
                     if (result != null) {
-                        if (result.deviceId == preferences.getString(MainFragment.KEY_DEVICE, null)) {
+                        if (result.deviceId == preferences.getString(
+                                MainFragment.KEY_DEVICE,
+                                null
+                            )
+                        ) {
                             send(result)
                         } else {
                             delete(result)

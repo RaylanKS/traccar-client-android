@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version="1.0" encoding="utf-8"?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -73,18 +72,18 @@
 
                     <Button
                         android:id="@+id/terms_exit_button"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/exit"
-                        style="?android:attr/buttonBarButtonStyle" />
+                        android:text="@string/exit" />
 
                     <Button
                         android:id="@+id/terms_next_button"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:text="@string/next"
-                        style="?android:attr/buttonBarButtonStyle" />
+                        android:text="@string/next" />
                 </LinearLayout>
 
             </LinearLayout>

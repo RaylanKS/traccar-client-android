@@ -53,7 +53,8 @@ class MainFragment : WebViewFragment() {
                 broadcastManager.sendBroadcast(Intent(EVENT_LOGIN))
             } else if (message.startsWith("server")) {
                 val url = message.substring(7)
-                br.com.softquick.rastreio.MainActivity.preferences.edit().putString(MainActivity.PREFERENCE_URL, url).apply()
+                br.com.softquick.rastreio.MainActivity.preferences.edit()
+                    .putString(MainActivity.PREFERENCE_URL, url).apply()
                 activity.runOnUiThread { webView.loadUrl(url) }
             }
         }
@@ -105,7 +106,10 @@ class MainFragment : WebViewFragment() {
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val token = intent.getStringExtra(KEY_TOKEN)
-            if (token != null) Log.i("MainFragment KEY_TOKEN", token) else Log.i("MainFragment KEY_TOKEN", "null")
+            if (token != null) Log.i(
+                "MainFragment KEY_TOKEN",
+                token
+            ) else Log.i("MainFragment KEY_TOKEN", "null")
             val code = "updateNotificationToken && updateNotificationToken('$token')"
             webView.evaluateJavascript(code, null)
         }
@@ -138,10 +142,12 @@ class MainFragment : WebViewFragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         if (requestCode == REQUEST_PERMISSIONS_LOCATION) {
-            val granted = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+            val granted =
+                grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
             if (geolocationCallback != null) {
                 geolocationCallback?.invoke(geolocationRequestOrigin, granted, false)
                 geolocationRequestOrigin = null
@@ -153,12 +159,21 @@ class MainFragment : WebViewFragment() {
     private var geolocationRequestOrigin: String? = null
     private var geolocationCallback: GeolocationPermissions.Callback? = null
     private val webChromeClient = object : WebChromeClient() {
-        override fun onGeolocationPermissionsShowPrompt(origin: String, callback: GeolocationPermissions.Callback
+        override fun onGeolocationPermissionsShowPrompt(
+            origin: String, callback: GeolocationPermissions.Callback
         ) {
             geolocationRequestOrigin = null
             geolocationCallback = null
-            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (ContextCompat.checkSelfPermission(
+                    activity,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        activity,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                ) {
                     AlertDialog.Builder(activity)
                         .setMessage(R.string.permission_location_rationale)
                         .setNeutralButton(android.R.string.ok) { _: DialogInterface?, _: Int ->

@@ -21,6 +21,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -81,13 +82,25 @@ class ShortcutActivity : AppCompatActivity() {
     private fun sendAlarm() {
         PositionProviderFactory.create(this, object : PositionListener {
             override fun onPositionUpdate(position: Position) {
-                val request = formatRequest(getString(R.string.settings_url_default_value), position, ALARM_SOS)
+                val request = formatRequest(
+                    getString(R.string.settings_url_default_value),
+                    position,
+                    ALARM_SOS
+                )
                 sendRequestAsync(request, object : RequestHandler {
                     override fun onComplete(success: Boolean) {
                         if (success) {
-                            Toast.makeText(this@ShortcutActivity, R.string.status_send_success, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ShortcutActivity,
+                                R.string.status_send_success,
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
-                            Toast.makeText(this@ShortcutActivity, R.string.status_send_fail, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ShortcutActivity,
+                                R.string.status_send_fail,
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 })
@@ -105,26 +118,42 @@ class ShortcutActivity : AppCompatActivity() {
         } else {
             intent.getStringExtra(EXTRA_ACTION)
         }
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (action != null) {
-            when (action) {
-                ACTION_START -> {
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(MainFragment.KEY_STATUS, true).apply()
-                    ContextCompat.startForegroundService(this, Intent(this, TrackingService::class.java))
-                    Toast.makeText(this, R.string.status_service_create, Toast.LENGTH_SHORT).show()
-                }
-                ACTION_STOP -> {
-                    PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(MainFragment.KEY_STATUS, false).apply()
-                    stopService(Intent(this, TrackingService::class.java))
-                    Toast.makeText(this, R.string.status_service_destroy, Toast.LENGTH_SHORT).show()
-                }
-                ACTION_SOS -> {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED && preferences.getString(
+                    MainFragment.KEY_DEVICE,
+                    ""
+                )!!.replace(" ", "") != ""
+            ) {
+                when (action) {
+                    ACTION_START -> {
+                        PreferenceManager.getDefaultSharedPreferences(this).edit()
+                            .putBoolean(MainFragment.KEY_STATUS, true).apply()
+                        ContextCompat.startForegroundService(
+                            this,
+                            Intent(this, TrackingService::class.java)
+                        )
+                        Toast.makeText(this, R.string.status_service_create, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    ACTION_STOP -> {
+                        PreferenceManager.getDefaultSharedPreferences(this).edit()
+                            .putBoolean(MainFragment.KEY_STATUS, false).apply()
+                        stopService(Intent(this, TrackingService::class.java))
+                        Toast.makeText(this, R.string.status_service_destroy, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    ACTION_SOS -> {
+                        Log.i("ShortcutActivity", "Sending alarm...")
                         sendAlarm()
-                    } else {
-                        Toast.makeText(this, R.string.status_send_fail, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
+            } else Toast.makeText(this, R.string.permission_location_rationale, Toast.LENGTH_SHORT)
+                .show()
+
             finish()
         }
         return action != null

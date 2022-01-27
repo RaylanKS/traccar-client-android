@@ -37,11 +37,15 @@ abstract class PositionProvider(
         fun onPositionError(error: Throwable)
     }
 
-    protected var preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    protected var preferences: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
     protected var deviceId = preferences.getString(MainFragment.KEY_DEVICE, "undefined")!!
-    protected var interval = preferences.getString(MainFragment.KEY_INTERVAL, "60")!!.toLong() * 1000
-    protected var distance: Double = preferences.getString(MainFragment.KEY_DISTANCE, "0")!!.toInt().toDouble()
-    protected var angle: Double = preferences.getString(MainFragment.KEY_ANGLE, "0")!!.toInt().toDouble()
+    protected var interval =
+        preferences.getString(MainFragment.KEY_INTERVAL, "60")!!.toLong() * 1000
+    protected var distance: Double =
+        preferences.getString(MainFragment.KEY_DISTANCE, "0")!!.toInt().toDouble()
+    protected var angle: Double =
+        preferences.getString(MainFragment.KEY_ANGLE, "0")!!.toInt().toDouble()
     private var lastLocation: Location? = null
 
     abstract fun startUpdates()
@@ -63,7 +67,8 @@ abstract class PositionProvider(
     }
 
     protected fun getBatteryLevel(context: Context): Double {
-        val batteryIntent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val batteryIntent =
+            context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         if (batteryIntent != null) {
             val level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
             val scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, 1)

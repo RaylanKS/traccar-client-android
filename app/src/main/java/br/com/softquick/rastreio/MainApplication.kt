@@ -54,13 +54,17 @@ open class MainApplication : MultiDexApplication() {
     private fun registerChannel() {
 
         val channel = NotificationChannel(
-            getString(R.string.client_notification_channel_id), getString(R.string.client_channel_default), NotificationManager.IMPORTANCE_LOW
+            getString(R.string.client_notification_channel_id),
+            getString(R.string.client_channel_default),
+            NotificationManager.IMPORTANCE_LOW
         )
         channel.enableVibration(false)
         channel.enableLights(false)
 
         channel.lockscreenVisibility = Notification.VISIBILITY_SECRET
-        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+            channel
+        )
     }
 
 }

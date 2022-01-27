@@ -67,7 +67,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         val fragment = fragmentManager.findFragmentById(R.id.webviewFragmentLocation)
@@ -75,7 +76,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        return MainMenuHandler.handleOnCreateOptionsMenu(menu, this, intArrayOf(R.id.menu_home_screen))
+        return MainMenuHandler.handleOnCreateOptionsMenu(
+            menu,
+            this,
+            intArrayOf(R.id.menu_home_screen)
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

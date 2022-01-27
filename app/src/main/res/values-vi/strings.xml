@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version='1.0' encoding='UTF-8'?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
     <string name="settings_id_title">Định danh thiết bị</string>
     <string name="settings_url_title">Đường dẫn server</string>

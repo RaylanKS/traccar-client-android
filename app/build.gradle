@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.mikepenz.aboutlibraries.plugin'
 
-def version = '1.0.0'
+def version = '1.1.0'
 
 aboutLibraries {
     includeAllLicenses = true
@@ -17,7 +17,7 @@ android {
         applicationId 'br.com.softquick.rastreio'
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 3
+        versionCode 4
         versionName version
         multiDexEnabled true
     }

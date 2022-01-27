@@ -17,6 +17,7 @@
  */
 package org.traccar.client
 
+/*
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
@@ -28,12 +29,12 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import br.com.softquick.rastreio.R
-
+ */
 @Suppress("unused")
 class BatteryOptimizationHelper {
 
 
-
+    /*
     private fun showDialog(context: Context, onSuccess: () -> Unit) {
         val builder = AlertDialog.Builder(context)
         builder.setMessage(context.getString(R.string.request_exception))
@@ -44,6 +45,9 @@ class BatteryOptimizationHelper {
         builder.show()
     }
 
+     */
+
+    /*
     private fun requestVendorException(context: Context) {
         val vendorIntentList = listOf(
             Intent().setComponent(ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")),
@@ -91,7 +95,7 @@ class BatteryOptimizationHelper {
         }
         return false
     }
-
+     */
     companion object {
         private const val HELP_URL = "https://rastreio.softquick.com.br/battery_help.php"
         private const val KEY_EXCEPTION_REQUESTED = "exceptionRequested"

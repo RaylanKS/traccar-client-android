@@ -34,7 +34,11 @@ object MainMenuHandler {
     private val MENU_HIDE_DEFAULT = intArrayOf(R.id.menu_home_screen, R.id.menu_status)
 
     // Called in onCreateOptionsMenu
-    fun handleOnCreateOptionsMenu(menu: Menu, activity: Activity, menus : IntArray = intArrayOf()): Boolean {
+    fun handleOnCreateOptionsMenu(
+        menu: Menu,
+        activity: Activity,
+        menus: IntArray = intArrayOf()
+    ): Boolean {
         activity.menuInflater.inflate(R.menu.main_menu, menu)
         R.layout.main
         // Hide menus that we don't want
@@ -50,7 +54,12 @@ object MainMenuHandler {
 
     // Called in onOptionsItemSelected
     fun handleOnOptionsItemSelected(item: MenuItem, activity: Activity): Boolean {
-        return when (item.itemId) {
+        return openScreen(item.itemId, activity)
+    }
+
+    // Open a screen
+    fun openScreen(screenMenuId: Int, activity: Activity): Boolean {
+        return when (screenMenuId) {
             R.id.menu_open_source_licenses -> {
                 showLicensesActivity(activity)
                 true
@@ -67,7 +76,11 @@ object MainMenuHandler {
                 // Not using switch with getClass().getName() because we might forget to change here if the class name is changed
                 when (activity.javaClass) {
                     MainActivity::class.java // To not bypass the Accept Terms screen.
-                    -> Toast.makeText(activity, activity.getString(R.string.terms_info), Toast.LENGTH_LONG)
+                    -> Toast.makeText(
+                        activity,
+                        activity.getString(R.string.terms_info),
+                        Toast.LENGTH_LONG
+                    )
                         .show()
                     ChooseModeActivity::class.java // When already in main screen.
                     -> Toast.makeText(
@@ -86,7 +99,12 @@ object MainMenuHandler {
                 true
             }
             R.id.menu_status -> {
-                activity.startActivity(Intent(activity, org.traccar.client.StatusActivity::class.java))
+                activity.startActivity(
+                    Intent(
+                        activity,
+                        org.traccar.client.StatusActivity::class.java
+                    )
+                )
                 true
             }
             R.id.menu_contact -> {
@@ -96,6 +114,7 @@ object MainMenuHandler {
             else -> false
         }
     }
+
 
     fun openContactURL(context: Context) {
         openURL(CONTACT_URL, context)

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<?xml version="1.0" encoding="utf-8"?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
 <resources>
 
     <color name="primary">#0000BD</color>
     <color name="primary_dark">#00007C</color>
     <color name="accent">#5555FF</color>
     <color name="light">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
 
 </resources>

@@ -32,37 +32,43 @@ import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleObserver
 import androidx.preference.*
+import br.com.softquick.rastreio.MainMenuHandler
 import br.com.softquick.rastreio.R
 
-class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
+class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener,
+    LifecycleObserver {
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var alarmIntent: PendingIntent
-    private var requestingPermissions: Boolean = false
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        inputDialog = DeviceKeyInputDialog()
+        inputDialog.initialize(this)
+        inputDialog.isCancelable = false
+        initPreferences()
+    }
 
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setHasOptionsMenu(true)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        initPreferences()
 
-        findPreference<Preference>(KEY_DEVICE)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            newValue != null && newValue != ""
-        }
-        findPreference<Preference>(KEY_INTERVAL)?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            try {
-                newValue != null && (newValue as String).toInt() > 0
-            } catch (e: NumberFormatException) {
-                Log.w(TAG, e)
-                false
+        findPreference<Preference>(KEY_DEVICE)?.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                newValue != null && newValue != ""
             }
-        }
+        findPreference<Preference>(KEY_INTERVAL)?.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                try {
+                    newValue != null && (newValue as String).toInt() > 0
+                } catch (e: NumberFormatException) {
+                    Log.w(TAG, e)
+                    false
+                }
+            }
         val numberValidationListener = Preference.OnPreferenceChangeListener { _, newValue ->
             try {
                 newValue != null && (newValue as String).toInt() >= 0
@@ -71,7 +77,8 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
                 false
             }
         }
-        findPreference<Preference>(KEY_DISTANCE)?.onPreferenceChangeListener = numberValidationListener
+        findPreference<Preference>(KEY_DISTANCE)?.onPreferenceChangeListener =
+            numberValidationListener
         findPreference<Preference>(KEY_ANGLE)?.onPreferenceChangeListener = numberValidationListener
 
         alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -88,6 +95,10 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         if (sharedPreferences.getBoolean(KEY_STATUS, false)) {
             startTrackingService(checkPermission = true, initialPermission = false)
         }
+
+        PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
+
+
     }
 
     class NumericEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
@@ -122,9 +133,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
 
     override fun onStart() {
         super.onStart()
-        if (requestingPermissions) {
-            requestingPermissions = BatteryOptimizationHelper().requestException(requireContext())
-        }
     }
 
     override fun onResume() {
@@ -135,6 +143,8 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     override fun onPause() {
         super.onPause()
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        if (inputDialog.isVisible)
+            inputDialog.dismiss() // To not call onCreateDialog when mainFragment is not initialized (mainFragment == null)
     }
 
     private fun setPreferencesEnabled(enabled: Boolean) {
@@ -155,25 +165,42 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
                 stopTrackingService()
             }
         } else if (key == KEY_DEVICE) {
-            findPreference<Preference>(KEY_DEVICE)?.summary = sharedPreferences.getString(KEY_DEVICE, null)
+            findPreference<Preference>(KEY_DEVICE)?.summary =
+                sharedPreferences.getString(KEY_DEVICE, null)
         }
     }
 
     private fun initPreferences() {
-        PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
-        if (!sharedPreferences.contains(KEY_DEVICE)) {
-            val inputDialog = DeviceKeyInputDialog()
-            inputDialog.initialize(this)
-            inputDialog.show(parentFragmentManager, "key_dialog")
+        if (!sharedPreferences.contains(KEY_DEVICE) || sharedPreferences.getString(
+                KEY_DEVICE,
+                ""
+            ) == ""
+        ) {
+            if (!inputDialog.isVisible)
+                inputDialog.show(parentFragmentManager, "key_dialog")
+        } else {
+            if (inputDialog.isVisible)
+                inputDialog.dismiss()
         }
-        findPreference<Preference>(KEY_DEVICE)?.summary = sharedPreferences.getString(KEY_DEVICE, null)
+        findPreference<Preference>(KEY_DEVICE)?.summary =
+            sharedPreferences.getString(KEY_DEVICE, null)
+    }
+
+    fun returnToMainMenu() {
+        MainMenuHandler.openScreen(R.id.menu_home_screen, activity!!)
+        activity!!.finish()
     }
 
     fun onDeviceKeyInputDialogAccepted(input: String) {
-        sharedPreferences.edit().putString(KEY_DEVICE, input).apply()
-        initPreferences()
+        if (input.replace(" ", "") != "") {
+            sharedPreferences.edit().putString(KEY_DEVICE, input).apply()
+            initPreferences()
+            if (inputDialog.isVisible)
+                inputDialog.dismiss()
+        }
     }
 
+    /*
     private fun showBackgroundLocationDialog(context: Context, onSuccess: () -> Unit) {
         val builder = AlertDialog.Builder(context)
         val option = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -183,43 +210,44 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
         builder.setMessage(context.getString(R.string.request_background, option))
         builder.setPositiveButton(android.R.string.ok) { _, _ -> onSuccess() }
-        builder.setNeutralButton(R.string.tutorial) { _, _ -> br.com.softquick.rastreio.MainMenuHandler.openURL(HELP_URL, context)}
+        builder.setNeutralButton(R.string.tutorial) { _, _ -> MainMenuHandler.openURL(HELP_URL, context)}
         builder.setCancelable(false)
         builder.show()
     }
+     */
 
     private fun startTrackingService(checkPermission: Boolean, initialPermission: Boolean) {
         var permission = initialPermission
         if (checkPermission) {
             val requiredPermissions: MutableSet<String> = HashSet()
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
             }
             permission = requiredPermissions.isEmpty()
             if (!permission) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(requiredPermissions.toTypedArray(), PERMISSIONS_REQUEST_LOCATION)
+                    requestPermissions(
+                        requiredPermissions.toTypedArray(),
+                        PERMISSIONS_REQUEST_LOCATION
+                    )
                 }
                 return
             }
         }
         if (permission) {
             setPreferencesEnabled(false)
-            ContextCompat.startForegroundService(requireContext(), Intent(activity, TrackingService::class.java))
+            ContextCompat.startForegroundService(
+                requireContext(),
+                Intent(activity, TrackingService::class.java)
+            )
             alarmManager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 ALARM_MANAGER_INTERVAL.toLong(), ALARM_MANAGER_INTERVAL.toLong(), alarmIntent
             )
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestingPermissions = true
-                showBackgroundLocationDialog(requireContext()) {
-                    requestPermissions(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PERMISSIONS_REQUEST_BACKGROUND_LOCATION)
-                }
-            } else {
-                requestingPermissions = BatteryOptimizationHelper().requestException(requireContext())
-            }
         } else {
             sharedPreferences.edit().putBoolean(KEY_STATUS, false).apply()
             val preference = findPreference<TwoStatePreference>(KEY_STATUS)
@@ -233,7 +261,11 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         setPreferencesEnabled(true)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PERMISSIONS_REQUEST_LOCATION) {
             var granted = true
             for (result in grantResults) {
@@ -247,7 +279,12 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     }
 
     companion object {
+        private lateinit var inputDialog: DeviceKeyInputDialog
+        private lateinit var sharedPreferences: SharedPreferences
+        private lateinit var alarmManager: AlarmManager
+        private lateinit var alarmIntent: PendingIntent
         private val TAG = MainFragment::class.java.simpleName
+        private var requestingPermissions: Boolean = false
         private const val ALARM_MANAGER_INTERVAL = 15000
         private const val HELP_URL = "https://rastreio.softquick.com.br/location_help.php"
         const val KEY_DEVICE = "id"

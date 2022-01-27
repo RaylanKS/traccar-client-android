@@ -1,25 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- Note that changes are made for this file by Raylan Klitzke Schultz -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/input_dialog_message"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/request_device_key_dialog" />
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:scrollbars="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/device_key_text"
+        <TextView
+            android:id="@+id/input_dialog_message"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/device_key_textfield_title" />
-    </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/request_device_key_dialog" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/device_key_text"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/device_key_textfield_title" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/input_dialog_message_location_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_alert_user" />
+
+        <CheckBox
+            android:id="@+id/input_dialog_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:minHeight="48dp"
+            android:text="@string/i_accept_being_tracked_in_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/input_dialog_contact_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/contact"
+                android:textColor="#7C4DFF" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/input_dialog_cancel_button"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@android:string/cancel"
+                    android:textColor="#7C4DFF" />
+
+                <Button
+                    android:id="@+id/input_dialog_ok_button"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@android:string/ok"
+                    android:textColor="#7C4DFF" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

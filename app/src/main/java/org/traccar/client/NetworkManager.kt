@@ -16,6 +16,7 @@
  * Note that changes are made for this file by Raylan Klitzke Schultz
  */
 @file:Suppress("DEPRECATION")
+
 package org.traccar.client
 
 import android.content.BroadcastReceiver
@@ -25,9 +26,11 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.util.Log
 
-class NetworkManager(private val context: Context, private val handler: NetworkHandler?) : BroadcastReceiver() {
+class NetworkManager(private val context: Context, private val handler: NetworkHandler?) :
+    BroadcastReceiver() {
 
-    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     interface NetworkHandler {
         fun onNetworkUpdate(isOnline: Boolean)

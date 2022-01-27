@@ -32,11 +32,11 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var termsLayout : LinearLayout
-    lateinit var loadingLayout : LinearLayout
-    lateinit var loadingProgressBar : ProgressBar
+    lateinit var termsLayout: LinearLayout
+    lateinit var loadingLayout: LinearLayout
+    lateinit var loadingProgressBar: ProgressBar
     lateinit var loadingFailLayout: LinearLayout
-    lateinit var tryAgainButton : Button
+    lateinit var tryAgainButton: Button
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,20 +73,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun requestTermsVersionCheck(httpClient : OkHttpClient, request : Request) {
+    private fun requestTermsVersionCheck(httpClient: OkHttpClient, request: Request) {
         loadingFailLayout.visibility = View.GONE
         loadingProgressBar.visibility = View.VISIBLE
         httpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 onError()
-                Log.e("HttpError","Request failure: ${e.stackTrace}")
+                Log.e("HttpError", "Request failure: ${e.stackTrace}")
             }
+
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) {
                     onError()
-                    Log.e("HttpError","Invalid response from server: $response")
+                    Log.e("HttpError", "Invalid response from server: $response")
                 }
-                val responseContent = response.body?.string() ?: throw NullPointerException("Response body is null")
+                val responseContent =
+                    response.body?.string() ?: throw NullPointerException("Response body is null")
 
                 val mainJsonObject = JSONObject(responseContent)
                 val versionsJsonObject = mainJsonObject.getJSONObject("versions")
@@ -159,7 +161,11 @@ class MainActivity : AppCompatActivity() {
         sair.setOnClickListener { finish() }
     }
 
-    private fun updateNextButtonCheckedStatus(termsChecked : Boolean, privacyChecked : Boolean, nextButton : Button) : Boolean {
+    private fun updateNextButtonCheckedStatus(
+        termsChecked: Boolean,
+        privacyChecked: Boolean,
+        nextButton: Button
+    ): Boolean {
         nextButton.isEnabled = termsChecked and privacyChecked
         return nextButton.isEnabled
     }
@@ -197,8 +203,10 @@ class MainActivity : AppCompatActivity() {
         var currentPrivacyVersion = -1
 
         const val URL_TERMS_OF_USE = "https://rastreio.softquick.com.br/termos_de_uso.html"
-        const val URL_PRIVACY_POLITY = "https://rastreio.softquick.com.br/politica_de_privacidade.html"
-        const val URL_TERMS_PRIVACY_VERSION_CHECKER = "https://rastreio.softquick.com.br/backend/terms_check.php"
+        const val URL_PRIVACY_POLITY =
+            "https://rastreio.softquick.com.br/politica_de_privacidade.html"
+        const val URL_TERMS_PRIVACY_VERSION_CHECKER =
+            "https://rastreio.softquick.com.br/backend/terms_check.php"
 
     }
 }
