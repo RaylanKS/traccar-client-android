@@ -28,12 +28,28 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.DialogFragment
 import br.com.softquick.rastreio.R
+import android.content.DialogInterface
+
+
+
 
 class DeviceKeyInputDialog : DialogFragment() {
+
+    private var showing = false
+    var showingBefore = showing
 
     lateinit var mainFragment: MainFragment
     fun initialize(fragment: MainFragment) {
         mainFragment = fragment
+    }
+
+    fun isShowing () : Boolean {
+        return showing
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        showing = false
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -78,8 +94,7 @@ class DeviceKeyInputDialog : DialogFragment() {
             contactButton.setOnClickListener {
                 br.com.softquick.rastreio.MainMenuHandler.openContactURL(context)
             }
-
-
+            showing = true
             builder.create()
         } else {
             throw NullPointerException(javaClass.name + ": context is null")

@@ -32,14 +32,14 @@ import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleObserver
 import androidx.preference.*
 import br.com.softquick.rastreio.MainMenuHandler
 import br.com.softquick.rastreio.R
 
-class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener,
-    LifecycleObserver {
+class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListener {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,8 +97,6 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         }
 
         PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
-
-
     }
 
     class NumericEditTextPreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
@@ -121,29 +119,32 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
     }
 
     override fun onDisplayPreferenceDialog(preference: Preference) {
-        if (listOf(KEY_INTERVAL, KEY_DISTANCE, KEY_ANGLE).contains(preference.key)) {
-            val f: EditTextPreferenceDialogFragmentCompat =
-                NumericEditTextPreferenceDialogFragment.newInstance(preference.key)
-            f.setTargetFragment(this, 0)
-            f.show(requireFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG")
-        } else {
-            super.onDisplayPreferenceDialog(preference)
+        if (sharedPreferences.getString(
+                KEY_DEVICE,"")!!.replace(" ","") != "") {
+            if (listOf(KEY_INTERVAL, KEY_DISTANCE, KEY_ANGLE).contains(preference.key)) {
+                val f: EditTextPreferenceDialogFragmentCompat =
+                    NumericEditTextPreferenceDialogFragment.newInstance(preference.key)
+                f.setTargetFragment(this, 0)
+                f.show(requireFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG")
+            } else {
+                super.onDisplayPreferenceDialog(preference)
+            }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onResume() {
         super.onResume()
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        if (inputDialog.showingBefore) {
+            inputDialog.show(requireFragmentManager(), "key_dialog")
+        }
     }
 
     override fun onPause() {
         super.onPause()
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-        if (inputDialog.isVisible)
+        inputDialog.showingBefore = inputDialog.isShowing()
+        if (inputDialog.isShowing())
             inputDialog.dismiss() // To not call onCreateDialog when mainFragment is not initialized (mainFragment == null)
     }
 
@@ -159,10 +160,13 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (key == KEY_STATUS) {
-            if (sharedPreferences.getBoolean(KEY_STATUS, false)) {
-                startTrackingService(checkPermission = true, initialPermission = false)
-            } else {
-                stopTrackingService()
+            if (sharedPreferences.getString(
+                    KEY_DEVICE,"")!!.replace(" ","") != "") {
+                if (sharedPreferences.getBoolean(KEY_STATUS, false)) {
+                    startTrackingService(checkPermission = true, initialPermission = false)
+                } else {
+                    stopTrackingService()
+                }
             }
         } else if (key == KEY_DEVICE) {
             findPreference<Preference>(KEY_DEVICE)?.summary =
@@ -176,10 +180,10 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
                 ""
             ) == ""
         ) {
-            if (!inputDialog.isVisible)
+            if (!inputDialog.isShowing())
                 inputDialog.show(parentFragmentManager, "key_dialog")
         } else {
-            if (inputDialog.isVisible)
+            if (inputDialog.isShowing())
                 inputDialog.dismiss()
         }
         findPreference<Preference>(KEY_DEVICE)?.summary =
@@ -195,8 +199,13 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
         if (input.replace(" ", "") != "") {
             sharedPreferences.edit().putString(KEY_DEVICE, input).apply()
             initPreferences()
-            if (inputDialog.isVisible)
+            if (inputDialog.isShowing())
                 inputDialog.dismiss()
+        } else {
+            Toast.makeText(
+                activity,
+                getString(R.string.invalid_key),
+                Toast.LENGTH_LONG).show()
         }
     }
 
@@ -217,41 +226,44 @@ class MainFragment : PreferenceFragmentCompat(), OnSharedPreferenceChangeListene
      */
 
     private fun startTrackingService(checkPermission: Boolean, initialPermission: Boolean) {
-        var permission = initialPermission
-        if (checkPermission) {
-            val requiredPermissions: MutableSet<String> = HashSet()
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-            permission = requiredPermissions.isEmpty()
-            if (!permission) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(
-                        requiredPermissions.toTypedArray(),
-                        PERMISSIONS_REQUEST_LOCATION
-                    )
+        if (sharedPreferences.getString(
+                KEY_DEVICE,"")!!.replace(" ","") != "") {
+            var permission = initialPermission
+            if (checkPermission) {
+                val requiredPermissions: MutableSet<String> = HashSet()
+                if (ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requiredPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
-                return
+                permission = requiredPermissions.isEmpty()
+                if (!permission) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(
+                            requiredPermissions.toTypedArray(),
+                            PERMISSIONS_REQUEST_LOCATION
+                        )
+                    }
+                    return
+                }
             }
-        }
-        if (permission) {
-            setPreferencesEnabled(false)
-            ContextCompat.startForegroundService(
-                requireContext(),
-                Intent(activity, TrackingService::class.java)
-            )
-            alarmManager.setInexactRepeating(
-                AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                ALARM_MANAGER_INTERVAL.toLong(), ALARM_MANAGER_INTERVAL.toLong(), alarmIntent
-            )
-        } else {
-            sharedPreferences.edit().putBoolean(KEY_STATUS, false).apply()
-            val preference = findPreference<TwoStatePreference>(KEY_STATUS)
-            preference?.isChecked = false
+            if (permission) {
+                setPreferencesEnabled(false)
+                ContextCompat.startForegroundService(
+                    requireContext(),
+                    Intent(activity, TrackingService::class.java)
+                )
+                alarmManager.setInexactRepeating(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    ALARM_MANAGER_INTERVAL.toLong(), ALARM_MANAGER_INTERVAL.toLong(), alarmIntent
+                )
+            } else {
+                sharedPreferences.edit().putBoolean(KEY_STATUS, false).apply()
+                val preference = findPreference<TwoStatePreference>(KEY_STATUS)
+                preference?.isChecked = false
+            }
         }
     }
 

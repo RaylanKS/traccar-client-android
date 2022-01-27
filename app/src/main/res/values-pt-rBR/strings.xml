@@ -54,6 +54,7 @@
     <string name="tutorial">Tutorial</string>
     <string name="contact">Contato</string>
     <string name="about_menu">Sobre</string>
+    <string name="invalid_key">Chave inválida</string>
 
     <string name="button_start">Iniciar</string>
     <string name="error_connection">Falha ao conectar ao servidor</string>

@@ -169,14 +169,11 @@ class MainFragment : WebViewFragment() {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        activity,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
-                ) {
                     AlertDialog.Builder(activity)
                         .setMessage(R.string.permission_location_rationale)
-                        .setNeutralButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                        .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
+                        }
+                        .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                             geolocationRequestOrigin = origin
                             geolocationCallback = callback
                             ActivityCompat.requestPermissions(
@@ -186,15 +183,6 @@ class MainFragment : WebViewFragment() {
                             )
                         }
                         .show()
-                } else {
-                    geolocationRequestOrigin = origin
-                    geolocationCallback = callback
-                    ActivityCompat.requestPermissions(
-                        activity,
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        REQUEST_PERMISSIONS_LOCATION
-                    )
-                }
             } else {
                 callback.invoke(origin, true, false)
             }
